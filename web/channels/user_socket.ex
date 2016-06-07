@@ -2,7 +2,7 @@ defmodule TapRacer.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", TapRacer.RoomChannel
+  channel "taps:*", TapRacer.TapChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
