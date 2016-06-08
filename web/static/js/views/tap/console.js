@@ -11,6 +11,10 @@ export default class View extends MainView {
       console.log("Join: " + payload["username"])
     })
 
+    channel.on("terminate", payload => {
+      console.log("Terminate: " + payload["username"])
+    })
+
     channel.on("tap", payload => {
       console.log("Tap: " + payload["username"])
     })

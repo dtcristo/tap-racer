@@ -11,7 +11,7 @@ export default class View extends MainView {
 
     $tapButton.on("click", event => {
       console.log("tap")
-      channel.push("tap", {username: username})
+      channel.push("tap")
     })
 
     channel.join()

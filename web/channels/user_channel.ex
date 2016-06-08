@@ -4,10 +4,17 @@ defmodule TapRacer.UserChannel do
   def join("user", %{"username" => username}, socket) do
     IO.puts "Join: #{username}"
     TapRacer.Endpoint.broadcast! "console", "join", %{username: username}
-    {:ok, socket}
+    {:ok, assign(socket, :username, username)}
   end
 
-  def handle_in("tap", %{"username" => username}, socket) do
+  def terminate(_reason, socket) do
+    username = socket.assigns.username
+    IO.puts "Terminate: #{username}"
+    TapRacer.Endpoint.broadcast! "console", "terminate", %{username: username}
+  end
+
+  def handle_in("tap", _message, socket) do
+    username = socket.assigns.username
     IO.puts "Tap: #{username}"
     TapRacer.Endpoint.broadcast! "console", "tap", %{username: username}
     {:noreply, socket}
