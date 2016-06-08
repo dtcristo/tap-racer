@@ -37,12 +37,29 @@ export default class View extends MainView {
     return $(`.players [data-username="${username}"]`)
   }
 
-  addPlayer(username, score) {
-    $(".players").append(`<div class="player" data-username="${username}"><div class="player-username">${username}</div><div class="player-score">0</div></div>`)
+  addPlayer(username) {
+    $(".players").append(`
+      <div class="player" data-username="${username}">
+        <span class="player-username">${username}</span>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+        </div>
+      </div>
+    `)
   }
 
   resetGame() {
-    $(".player-score").text("0")
+    $(".progress-bar").attr("aria-valuenow", "0")
+                      .attr("style", "width: 0%;")
+  }
+
+  getScore($player) {
+    return parseInt($player.find(".progress-bar").attr("aria-valuenow"))
+  }
+
+  setScore($player, score) {
+    $player.find(".progress-bar").attr("aria-valuenow", score)
+                                 .attr("style", `width: ${score}%;`)
   }
 
   handleJoin(username) {
@@ -64,9 +81,9 @@ export default class View extends MainView {
       this.addPlayer(username, 1)
     }
     else {
-      let score = parseInt($player.find(".player-score").text())
+      let score = this.getScore($player)
       score++
-      $player.find(".player-score").text(score)
+      this.setScore($player, score)
       if (score === 100) {
         alert(`${username} wins!`)
         this.resetGame()
