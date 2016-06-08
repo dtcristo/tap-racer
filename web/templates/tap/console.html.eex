@@ -1,2 +1,3 @@
 <h1>TapRacer Console</h1>
 <a href="<%= tap_path(@conn, :index) %>">Home</a>
+<div class="players"></div>
