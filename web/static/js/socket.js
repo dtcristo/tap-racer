@@ -53,22 +53,4 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 socket.connect()
 
-// Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("taps:anonymous", {})
-let $tapButton = $(".tap")
-let $taps = $(".taps")
-
-$tapButton.on("click", event => {
-  console.log("tap")
-  channel.push("tap", {body: "A tap"})
-})
-
-channel.on("tap", payload => {
-  console.log("tap received")
-})
-
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
-
 export default socket

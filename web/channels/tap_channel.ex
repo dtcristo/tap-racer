@@ -1,12 +1,17 @@
 defmodule TapRacer.TapChannel do
   use Phoenix.Channel
 
-  def join("taps:anonymous", _message, socket) do
+  def join("taps:user", _message, socket) do
     {:ok, socket}
   end
 
-  def handle_in("tap", %{"body" => body}, socket) do
-    broadcast! socket, "tap", %{body: body}
+  def join("taps:console", _message, socket) do
+    {:ok, socket}
+  end
+
+  def handle_in("tap", %{"username" => username}, socket) do
+    IO.puts "Tap from: #{username}"
+    TapRacer.Endpoint.broadcast! "taps:console", "tap", %{username: username}
     {:noreply, socket}
   end
 

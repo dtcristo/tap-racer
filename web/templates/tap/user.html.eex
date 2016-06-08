@@ -1,0 +1,2 @@
+<h1>TapRacer, welcome <%= @username %></h1>
+<button class="tap" data-username="<%= @username %>">Tap here</button>

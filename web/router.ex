@@ -17,7 +17,8 @@ defmodule TapRacer.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", TapController, :index
-    get "/taps", TapController, :taps
+    get "/console", TapController, :console
+    get "/:username", TapController, :user
   end
 
   # Other scopes may use custom stacks.
