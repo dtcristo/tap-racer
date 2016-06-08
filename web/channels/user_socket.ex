@@ -1,8 +1,9 @@
 defmodule TapRacer.UserSocket do
   use Phoenix.Socket
 
-  ## Channels
-  channel "taps:*", TapRacer.TapChannel
+  ## Channels'
+  channel "console", TapRacer.ConsoleChannel
+  channel "user", TapRacer.UserChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

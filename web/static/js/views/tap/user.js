@@ -5,9 +5,9 @@ export default class View extends MainView {
   mount() {
     super.mount()
 
-    let channel = socket.channel("taps:user", {})
     let $tapButton = $(".tap")
     let username = $tapButton.data("username")
+    let channel = socket.channel("user", {username: username})
 
     $tapButton.on("click", event => {
       console.log("tap")
@@ -16,10 +16,10 @@ export default class View extends MainView {
 
     channel.join()
       .receive("ok", resp => {
-        console.log("Joined taps:user", resp)
+        console.log("Joined 'user' channel", resp)
       })
       .receive("error", resp => {
-        console.log("Error joining taps:user", resp)
+        console.log("Error joining 'user' channel", resp)
       })
 
     console.log("TapUserView mounted")
