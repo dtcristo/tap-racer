@@ -3,7 +3,7 @@ defmodule TapRacer.UserSocket do
 
   ## Channels'
   channel "console", TapRacer.ConsoleChannel
-  channel "user", TapRacer.UserChannel
+  channel "play", TapRacer.PlayChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

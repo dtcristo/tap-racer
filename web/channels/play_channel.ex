@@ -1,7 +1,7 @@
-defmodule TapRacer.UserChannel do
+defmodule TapRacer.PlayChannel do
   use Phoenix.Channel
 
-  def join("user", %{"username" => username}, socket) do
+  def join("play", %{"username" => username}, socket) do
     IO.puts "Join: #{username}"
     TapRacer.Endpoint.broadcast! "console", "join", %{username: username}
     {:ok, assign(socket, :username, username)}

@@ -1,8 +1,7 @@
 <h1>TapRacer signup</h1>
 
-<form action="/">
-  <label for="username">Username:</label>
-  <input type="text" name="username">
+<form action="/play" method="get">
+  <label for="name">Name:</label>
+  <input type="text" name="name">
   <input type="submit" value="Play">
-  <button type="button" name="play">Play</button>
 </form>

@@ -3,12 +3,12 @@
 
 import MainView from "./main"
 import TapConsoleView from "./tap/console"
-import TapUserView from "./tap/user"
+import TapPlayView from "./tap/play"
 
 // Collection of specific view modules
 const views = {
   TapConsoleView,
-  TapUserView
+  TapPlayView
 }
 
 export default function loadView(viewName) {

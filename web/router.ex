@@ -18,7 +18,7 @@ defmodule TapRacer.Router do
 
     get "/", TapController, :index
     get "/console", TapController, :console
-    get "/:username", TapController, :user
+    get "/play", TapController, :play
   end
 
   # Other scopes may use custom stacks.
