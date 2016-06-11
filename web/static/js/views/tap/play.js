@@ -5,11 +5,10 @@ export default class View extends MainView {
   mount() {
     super.mount()
 
-    let $tapButton = $(".tap")
-    let name = $tapButton.data("name")
+    let name = this.getQueryParams()["name"]
     let channel = socket.channel("play", {name: name})
 
-    $tapButton.on("click", event => {
+    $(".tap").on("click", event => {
       console.log("tap")
       channel.push("tap")
     })
@@ -29,5 +28,18 @@ export default class View extends MainView {
     super.unmount()
     // Specific logic here
     console.log("TapPlayView unmounted")
+  }
+
+  getQueryParams()
+  {
+    let params = []
+    let hashes = document.location.search.slice(1).split("&")
+    for(let i = 0; i < hashes.length; i++)
+    {
+      let hash = hashes[i].split("=")
+      params.push(hash[0])
+      params[hash[0]] = hash[1]
+    }
+    return params
   }
 }
