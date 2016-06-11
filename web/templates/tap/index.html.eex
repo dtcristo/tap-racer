@@ -2,6 +2,7 @@
   TapRacer<br>
   <small>Register today</small>
 </h1>
+<hr>
 <form action="/play" method="get">
   <div class="form-group">
     <label for="name">Name</label>
