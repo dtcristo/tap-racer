@@ -88,15 +88,15 @@ export default class View extends MainView {
     $(".progress-bar").attr("aria-valuenow", "0")
                       .attr("style", "width: 0%;")
 
-    window.setTimeout(() => { console.log("3") }, 1000);
-    window.setTimeout(() => { console.log("2") }, 2000);
-    window.setTimeout(() => { console.log("1") }, 3000);
-
+    this.flashMessage("Get ready")
+    window.setTimeout(() => { this.flashMessage("3") }, 1000);
+    window.setTimeout(() => { this.flashMessage("2") }, 2000);
+    window.setTimeout(() => { this.flashMessage("1") }, 3000);
     window.setTimeout(() => {
-      console.log("Go!")
+      this.showMessage("Tap!")
       this.gameLive = true
       console.log("gameLive = true")
-    }, 4000);
+    }, 4000)
   }
 
   getScore($player) {
@@ -106,5 +106,13 @@ export default class View extends MainView {
   setScore($player, score) {
     $player.find(".progress-bar").attr("aria-valuenow", score)
                                  .attr("style", `width: ${score}%;`)
+  }
+
+  flashMessage(message) {
+    $(".message").text(message).fadeTo(0,100).fadeTo(1000,0)
+  }
+
+  showMessage(message) {
+    $(".message").text(message).fadeTo(0,100)
   }
 }

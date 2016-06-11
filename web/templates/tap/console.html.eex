@@ -1,3 +1,6 @@
-<h1>TapRacer</h1>
+<h1>
+  TapRacer<br>
+  <small class="message"></small>
+</h1>
 <hr>
 <div class="players"></div>
