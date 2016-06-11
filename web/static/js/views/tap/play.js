@@ -6,8 +6,8 @@ export default class View extends MainView {
     super.mount()
 
     let $tapButton = $(".tap")
-    let username = $tapButton.data("username")
-    let channel = socket.channel("play", {username: username})
+    let name = $tapButton.data("name")
+    let channel = socket.channel("play", {name: name})
 
     $tapButton.on("click", event => {
       console.log("tap")

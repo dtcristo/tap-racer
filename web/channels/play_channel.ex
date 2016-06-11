@@ -1,22 +1,22 @@
 defmodule TapRacer.PlayChannel do
   use Phoenix.Channel
 
-  def join("play", %{"username" => username}, socket) do
-    IO.puts "Join: #{username}"
-    TapRacer.Endpoint.broadcast! "console", "join", %{username: username}
-    {:ok, assign(socket, :username, username)}
+  def join("play", %{"name" => name}, socket) do
+    IO.puts "Join: #{name}"
+    TapRacer.Endpoint.broadcast! "console", "join", %{name: name}
+    {:ok, assign(socket, :name, name)}
   end
 
   def terminate(_reason, socket) do
-    username = socket.assigns.username
-    IO.puts "Terminate: #{username}"
-    TapRacer.Endpoint.broadcast! "console", "terminate", %{username: username}
+    name = socket.assigns.name
+    IO.puts "Terminate: #{name}"
+    TapRacer.Endpoint.broadcast! "console", "terminate", %{name: name}
   end
 
   def handle_in("tap", _message, socket) do
-    username = socket.assigns.username
-    IO.puts "Tap: #{username}"
-    TapRacer.Endpoint.broadcast! "console", "tap", %{username: username}
+    name = socket.assigns.name
+    IO.puts "Tap: #{name}"
+    TapRacer.Endpoint.broadcast! "console", "tap", %{name: name}
     {:noreply, socket}
   end
 end

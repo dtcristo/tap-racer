@@ -8,14 +8,14 @@ export default class View extends MainView {
     let channel = socket.channel("console", {})
 
     channel.on("join", payload => {
-      this.handleJoin(payload["username"])
+      this.handleJoin(payload["name"])
     })
     channel.on("terminate", payload => {
-      this.handleTerminate(payload["username"])
+      this.handleTerminate(payload["name"])
     })
     channel.on("tap", payload => {
       if (this.gameLive) {
-        this.handleTap(payload["username"])
+        this.handleTap(payload["name"])
       }
     })
     channel.join()
@@ -36,14 +36,14 @@ export default class View extends MainView {
     console.log("TapConsoleView unmounted")
   }
 
-  getPlayer(username) {
-    return $(`.players [data-username="${username}"]`)
+  getPlayer(name) {
+    return $(`.players [data-name="${name}"]`)
   }
 
-  addPlayer(username) {
+  addPlayer(name) {
     $(".players").append(`
-      <div class="player" data-username="${username}">
-        <h2 class="player-username">${username}</h2>
+      <div class="player" data-name="${name}">
+        <h2 class="player-name">${name}</h2>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
         </div>
@@ -75,23 +75,23 @@ export default class View extends MainView {
                                  .attr("style", `width: ${score}%;`)
   }
 
-  handleJoin(username) {
-    console.log("Join: " + username)
-    if (this.getPlayer(username).length === 0) {
-      this.addPlayer(username, 0)
+  handleJoin(name) {
+    console.log("Join: " + name)
+    if (this.getPlayer(name).length === 0) {
+      this.addPlayer(name, 0)
     }
   }
 
-  handleTerminate(username) {
-    console.log("Terminate: " + username)
-    this.getPlayer(username).remove()
+  handleTerminate(name) {
+    console.log("Terminate: " + name)
+    this.getPlayer(name).remove()
   }
 
-  handleTap(username) {
-    console.log("Tap: " + username)
-    let $player = this.getPlayer(username)
+  handleTap(name) {
+    console.log("Tap: " + name)
+    let $player = this.getPlayer(name)
     if ($player.length === 0) {
-      this.addPlayer(username, 1)
+      this.addPlayer(name, 1)
     }
     else {
       let score = this.getScore($player)
@@ -100,7 +100,7 @@ export default class View extends MainView {
       if (score === 10) {
         this.gameLive = false
         console.log("gameLive = false")
-        alert(`${username} wins!`)
+        alert(`${name} wins!`)
         this.resetGame()
       }
     }
