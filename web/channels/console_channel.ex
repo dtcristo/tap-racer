@@ -1,7 +1,7 @@
 defmodule TapRacer.ConsoleChannel do
   use Phoenix.Channel
 
-  def join("console", _message, socket) do
+  def join("console", _payload, socket) do
     {:ok, socket}
   end
 
