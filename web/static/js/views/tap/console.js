@@ -14,7 +14,9 @@ export default class View extends MainView {
       this.handleTerminate(payload["username"])
     })
     channel.on("tap", payload => {
-      this.handleTap(payload["username"])
+      if (this.gameLive) {
+        this.handleTap(payload["username"])
+      }
     })
     channel.join()
       .receive("ok", resp => {
@@ -24,6 +26,7 @@ export default class View extends MainView {
         console.log("Error joining 'console' channel", resp)
       })
 
+    this.resetGame()
     console.log("TapConsoleView mounted")
   }
 
@@ -51,6 +54,16 @@ export default class View extends MainView {
   resetGame() {
     $(".progress-bar").attr("aria-valuenow", "0")
                       .attr("style", "width: 0%;")
+
+    window.setTimeout(() => { console.log("3") }, 1000);
+    window.setTimeout(() => { console.log("2") }, 2000);
+    window.setTimeout(() => { console.log("1") }, 3000);
+
+    window.setTimeout(() => {
+      console.log("go")
+      this.gameLive = true
+      console.log("gameLive = true")
+    }, 4000);
   }
 
   getScore($player) {
@@ -84,7 +97,9 @@ export default class View extends MainView {
       let score = this.getScore($player)
       score++
       this.setScore($player, score)
-      if (score === 100) {
+      if (score === 10) {
+        this.gameLive = false
+        console.log("gameLive = false")
         alert(`${username} wins!`)
         this.resetGame()
       }
