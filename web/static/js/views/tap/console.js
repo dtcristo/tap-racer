@@ -39,7 +39,7 @@ export default class View extends MainView {
   handleJoin(name, userId) {
     console.log("Join: " + name)
     if (this.getPlayer(userId).length === 0) {
-      this.addPlayer(name, userId, 0)
+      this.addPlayer(name, userId)
     }
   }
 
@@ -59,7 +59,7 @@ export default class View extends MainView {
       if (score === 10) {
         this.gameLive = false
         console.log("gameLive = false")
-        console.log(`${name} wins!`)
+        alert(`${name} wins!`)
         this.resetGame()
       }
     }
@@ -76,7 +76,7 @@ export default class View extends MainView {
   addPlayer(name, userId) {
     $(".players").append(`
       <div class="player" data-user-id="${userId}">
-        <h2 class="player-name">${name}</h2>
+        <h3 class="player-name">${name}</h3>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
         </div>
