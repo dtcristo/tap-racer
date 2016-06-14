@@ -56,7 +56,7 @@ export default class View extends MainView {
       let score = this.getScore($player)
       score++
       this.setScore($player, score)
-      if (score === 10) {
+      if (score === 250) {
         this.gameLive = false
         console.log("gameLive = false")
         alert(`${name} wins!`)
@@ -105,7 +105,7 @@ export default class View extends MainView {
 
   setScore($player, score) {
     $player.find(".progress-bar").attr("aria-valuenow", score)
-                                 .attr("style", `width: ${score}%;`)
+                                 .attr("style", `width: ${score/2.5}%;`)
   }
 
   flashMessage(message) {
