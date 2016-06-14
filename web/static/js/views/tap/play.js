@@ -8,7 +8,7 @@ export default class View extends MainView {
     let name = this.getQueryParams()["name"]
     let channel = socket.channel("play", {name: name})
 
-    $(".tap").on("click", event => {
+    $(".tap").on("touchstart", event => {
       console.log("tap")
       channel.push("tap")
     })
