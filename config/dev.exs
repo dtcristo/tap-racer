@@ -31,12 +31,3 @@ config :logger, :console, format: "[$level] $message\n"
 # Do not configure such in production as keeping
 # and calculating stacktraces is usually expensive.
 config :phoenix, :stacktrace_depth, 20
-
-# Configure your database
-config :tap_racer, TapRacer.Repo,
-  adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
-  database: "tap_racer_dev",
-  hostname: "localhost",
-  pool_size: 10

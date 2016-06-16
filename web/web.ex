@@ -18,21 +18,13 @@ defmodule TapRacer.Web do
 
   def model do
     quote do
-      use Ecto.Schema
-
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      # Define common model functionality
     end
   end
 
   def controller do
     quote do
       use Phoenix.Controller
-
-      alias TapRacer.Repo
-      import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
 
       import TapRacer.Router.Helpers
       import TapRacer.Gettext
@@ -64,10 +56,6 @@ defmodule TapRacer.Web do
   def channel do
     quote do
       use Phoenix.Channel
-
-      alias TapRacer.Repo
-      import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
       import TapRacer.Gettext
     end
   end

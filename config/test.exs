@@ -8,12 +8,3 @@ config :tap_racer, TapRacer.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
-
-# Configure your database
-config :tap_racer, TapRacer.Repo,
-  adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
-  database: "tap_racer_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
