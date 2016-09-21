@@ -6,11 +6,11 @@ To start TapRacer:
   * Install Node.js dependencies with `npm install`
   * Start Phoenix endpoint with `mix phoenix.server`
 
-Visit [`localhost:4000/console`](http://localhost:4000/console) on your desktop to view the game console.
+Visit [localhost:4000/console](http://localhost:4000/console) on your desktop to view the game console.
 
 ![Console](https://raw.github.com/dtcristo/tap-racer/master/images/console.png)
 
-Visit [`hostname:4000`](http://hostname:4000/) on one or more mobile devices (Replace `hostname` with your LAN IP address or hostname). Here you choose a name. Your mobile device is your controller. When the game starts, tap the big button as fast as you can.
+Visit [hostname:4000](http://hostname:4000/) on one or more mobile devices. Replace `hostname` with your LAN IP address or hostname. From here you choose a name and join the game. Your mobile device is your controller. When the game starts, tap the big button as fast as you can. Be the first to the end.
 
 ![Play](https://raw.github.com/dtcristo/tap-racer/master/images/play.png)
 
