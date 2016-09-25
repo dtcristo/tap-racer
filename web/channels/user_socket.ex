@@ -1,7 +1,7 @@
 defmodule TapRacer.UserSocket do
   use Phoenix.Socket
 
-  ## Channels'
+  ## Channels
   channel "console", TapRacer.ConsoleChannel
   channel "play", TapRacer.PlayChannel
 

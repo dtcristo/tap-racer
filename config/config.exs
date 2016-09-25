@@ -8,9 +8,8 @@ use Mix.Config
 # Configures the endpoint
 config :tap_racer, TapRacer.Endpoint,
   url: [host: "localhost"],
-  root: Path.dirname(__DIR__),
-  secret_key_base: "BFLt8dGoQbGO0P7kCLFsPQ0yNpPSR+DwEvbCW6ZMsTV/Yxr+bVYEKRasy6gMz44v",
-  render_errors: [accepts: ~w(html json)],
+  secret_key_base: "uFhtLlemAvvtmg+LoC8rr5V61lfxyHqRQOiBQMpeBx8c4VvDtnOwx+AzALGVLlvP",
+  render_errors: [view: TapRacer.ErrorView, accepts: ~w(html json)],
   pubsub: [name: TapRacer.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
