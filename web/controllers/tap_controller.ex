@@ -9,10 +9,8 @@ defmodule TapRacer.TapController do
     render conn, "console.html"
   end
 
-  def play(conn, %{"name" => name}) do
-    render conn, "play.html", name: name
-  end
-  def play(conn, _params) do
-    redirect conn, to: tap_path(conn, :index)
-  end
+  def play(conn, %{"name" => name}),
+    do: render conn, "play.html", name: name
+  def play(conn, _params),
+    do: redirect conn, to: tap_path(conn, :index)
 end
