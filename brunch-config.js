@@ -7,22 +7,22 @@ exports.config = {
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
       // joinTo: {
-      //  "js/app.js": /^(web\/static\/js)/,
-      //  "js/vendor.js": /^(web\/static\/vendor)|(deps)/
+      //  "js/app.js": /^(assets\/js)/,
+      //  "js/vendor.js": /^(assets\/vendor)|(deps)/
       // }
       //
       // To change the order of concatenation of files, explicitly mention here
       // order: {
       //   before: [
-      //     "web/static/vendor/js/jquery-2.1.1.js",
-      //     "web/static/vendor/js/bootstrap.min.js"
+      //     "assets/vendor/js/jquery-2.1.1.js",
+      //     "assets/vendor/js/bootstrap.min.js"
       //   ]
       // }
     },
     stylesheets: {
       joinTo: "css/app.css",
       order: {
-        after: ["web/static/css/app.css"] // concat app.css last
+        after: ["assets/css/app.css"] // concat app.css last
       }
     },
     templates: {
@@ -32,17 +32,17 @@ exports.config = {
 
   conventions: {
     // This option sets where we should place non-css and non-js assets in.
-    // By default, we set this to "/web/static/assets". Files in this directory
+    // By default, we set this to "/assets/public". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(web\/static\/assets)/
+    assets: /^(assets\/public)/
   },
 
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
     watched: [
-      "web/static",
-      "test/static"
+      "assets",
+      "test/assets"
     ],
 
     // Where to compile files to
@@ -53,13 +53,13 @@ exports.config = {
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/web\/static\/vendor/]
+      ignore: [/assets\/vendor/]
     }
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["web/static/js/app"]
+      "js/app.js": ["assets/js/app"]
     }
   },
 

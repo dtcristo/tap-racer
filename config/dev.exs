@@ -21,8 +21,8 @@ config :tap_racer, TapRacer.Endpoint,
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{web/views/.*(ex)$},
-      ~r{web/templates/.*(eex)$}
+      ~r{lib/tap_racer/web/views/.*(ex)$},
+      ~r{lib/tap_racer/web/templates/.*(eex)$}
     ]
   ]
 

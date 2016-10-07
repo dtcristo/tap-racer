@@ -1,5 +1,5 @@
 // NOTE: The contents of this file will only be executed if
-// you uncomment its entry in "web/static/js/app.js".
+// you uncomment its entry in "assets/js/app.js".
 
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/my_app/endpoint.ex":
@@ -31,7 +31,7 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 //     end
 //
 // Now you need to pass this token to JavaScript. You can do so
-// inside a script tag in "web/templates/layout/app.html.eex":
+// inside a script tag in "lib/tap_racer/web/templates/layout/app.html.eex":
 //
 //     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
 //
