@@ -1,7 +1,7 @@
 import MainView from "../main"
 import socket from "../../socket"
 
-export default class View extends MainView {
+export default class TapPlayView extends MainView {
   mount() {
     super.mount()
 
@@ -26,7 +26,6 @@ export default class View extends MainView {
 
   unmount() {
     super.unmount()
-    // Specific logic here
     console.log("TapPlayView unmounted")
   }
 
