@@ -21,7 +21,6 @@ end
 ```
 
 * This line directs any WebSocket connection at the following path to the UserSocket module. `ws://localhost:4000/socket # => TapRacer.UserSocket`
-
 * The details for the UserSocket are specified in `lib/web/channels/user_socket.ex`
 
 ```elixir
@@ -46,11 +45,8 @@ end
 ```
 
 * `channel/2` allows us to define topics (or rooms) for the socket. In my example I have two topics an each is directed to a different channel module.
-
 * `transport/2` allows us to specify the transport protocols accepted by the socket. Only WebSocket is enabled by default, but by enabling `:longpoll` channels can work with older browsers and clients that do not support WebSockets.
-
 * `connect/2` is called whenever a new client attempts to make a connection with the server. Authenticate a client before opening the connection. `socket` is a struct analagous to `conn` (for HTTP requests) and represents the state of this connection between the client an the server. `params` are parameters submitted by the client on connection. We can use the params to autenticate the user in some way, we return `{:ok, socket}` on successful authentication otherwise we return `:error`.
-
 * `id/1` allows you to identify a socket by a topic string. The can be used if we wanted to forcibly disconnect a user's socket.
 
 ## Connecting to Socket
