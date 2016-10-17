@@ -1,10 +1,14 @@
 # Phoenix Sockets and Channels
 
+* The Channel abstraction provided by Phoenix allow us to build compelling soft-realtime systems that can be scaled really easily.
+* Channels are essentially an abstraction over the WebSocket protocol and allows non-Elixir
+
+## Demo
+
 ## WebSocket protocol
 * Persistent bi-directional connection between client and server.
 * With HTTP, server cannot send data to client without a request.
 * Before WebSockets older polling techniques were used for achieving a similar result.
-
 
 ## Sockets
 * One connection per client, represented as a Socket in Phoenix. Each socket is a single Elixir process.
@@ -44,8 +48,9 @@ defmodule TapRacer.UserSocket do
 end
 ```
 
-* `channel/2` allows us to define topics (or rooms) for the socket. In my example I have two topics an each is directed to a different channel module. This is similar to mapping HTTP paths to a controller in the router.
-* `transport/2` allows us to specify the transport protocols accepted by the socket. Only WebSocket is enabled by default, but by enabling `:longpoll` channels can work with older browsers and clients that do not support WebSockets.
+* The Socket is responsible for wiring Transports to Channels.
+* The `channel` macro allows us to define topics (or rooms) for the socket. In my example I have two topics an each is directed to a different channel module. This is similar to mapping HTTP paths to a controller in the router.
+* The `transport` macro allows us to specify the transport protocols accepted by the socket. Only WebSocket is enabled by default, but by enabling `:longpoll` channels can work with older browsers and clients that do not support WebSockets.
 * `connect/2` is called whenever a new client attempts to make a connection with the server. Authenticate a client before opening the connection. `socket` is a struct analogous to `conn` (for HTTP requests) and represents the state of this connection between the client an the server. `params` are parameters submitted by the client on connection. We can use the params to authenticate the user in some way, we return `{:ok, socket}` on successful authentication otherwise we return `:error`.
 * `id/1` allows you to identify a socket by a topic string. The can be used if we wanted to forcibly disconnect a user's socket.
 
@@ -76,40 +81,58 @@ export default socket
 * Client-server communication can be across a single WebSocket connection.
 
 ```elixir
-defmodule MyApp.ChatChannel do
-  use MyApp.Web, :channel
+defmodule TapRacer.ChatChannel do
+  use TapRacer.Web, :channel
 
   intercept ["new_msg"]
 
-  def join("chat:lobby", _payload, socket) do
+  def join("chat:lobby", _params, socket) do
     {:ok, socket}
   end
-
-  def join("chat:secret", _payload, socket) do
+  def join("chat:secret", _params, socket) do
     {:error, %{reason: "You don't have permission!"}}
   end
-
-  def join("chat:" <> room_id, _payload, socket) do
+  def join("chat:" <> room_id, _params, socket) do
     {:ok, socket}
   end
 
-  def handle_in(message, payload, socket) do
+  def handle_in(event, payload, socket) do
     broadcast! socket, "new_msg", payload
     {:noreply, socket}
   end
 
-  def handle_out(message, payload, socket) do
-    # Customise payload
+  def handle_out(event, payload, socket) do
     push socket, "new_msg", payload
     {:noreply, socket}
   end
 
-  def terminate(message, socket) do
-    # clean up anything that needs to be
-    # most of the time, you can leave this blank
+  def terminate(event, socket) do
   end
 end
 ```
 
 * `join/3` authorises a client to join a channel topic when the client subscribes.
 * `handle_in/3` is called when an authorised user sends a message on the channel. Here we might do something with the message, like persist it in a database and broadcast it to all other users.
+* `handle_out/3` is called for each subscribed client just before an outbound message is sent. It can be used to customise the message for the specific client, or filtering the message entirely.
+* `terminate/2` is called when a client leaves or disconnects from the channel. We can use this to clean up things.
+
+## Joining a Channel
+
+```javascript
+let channel = socket.channel("play", {name: name})
+
+$(".tap").on("click touchstart", event => {
+  console.log("tap")
+  channel.push("tap")
+})
+
+channel.join()
+  .receive("ok", resp => {
+    console.log("Joined 'play' channel", resp)
+  })
+  .receive("error", resp => {
+    console.log("Error joining 'play' channel", resp)
+  })
+
+channel.push('new_msg', {body: 'Hello World!'})
+```

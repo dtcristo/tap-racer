@@ -1,0 +1,23 @@
+<div class="container-fluid" id="content">
+  <div class="container-fluid" id="header">
+    <h3>
+      Chat room: <%= @room %>
+    </h3>
+  </div>
+  <div class="well" id="messages" data-room="<%= @room %>">
+    <%# $messages.each do |message| %>
+      <%#= "<p><b>#{message['name']}:</b> #{message['text']}</p>" %>
+    <%# end %>
+  </div>
+  <div class="container-fluid" id="controls">
+    <form>
+      <div id="name-group">
+        <input class="form-control" id="name" name="name" tabindex="1" type="text" value="Guest"></input>
+      </div>
+      <input class="btn btn-default" id="send" tabindex="3" type="submit" value="Send"></input>
+      <div id="text-group">
+        <input autocomplete="off" class="form-control" id="text" name="text" tabindex="2" type="text"></input>
+      </div>
+    </form>
+  </div>
+</div>

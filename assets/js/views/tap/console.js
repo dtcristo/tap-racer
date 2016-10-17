@@ -7,13 +7,13 @@ export default class TapConsoleView extends MainView {
 
     let channel = socket.channel("console", {})
 
-    channel.on("join", payload => {
+    channel.on("user_join", payload => {
       this.handleJoin(payload["name"], payload["user_id"])
     })
-    channel.on("terminate", payload => {
+    channel.on("user_terminate", payload => {
       this.handleTerminate(payload["user_id"])
     })
-    channel.on("tap", payload => {
+    channel.on("user_tap", payload => {
       if (this.gameLive) {
         this.handleTap(payload["user_id"])
       }

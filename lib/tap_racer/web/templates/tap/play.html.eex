@@ -2,6 +2,6 @@
   TapRacer<br>
   <small>Welcome <%= @name %></small>
 </h1>
-<button class="tap btn btn-default">Tap here</button>
+<button id="tapper" class="tap btn btn-default" data-name="<%= @name %>">Tap here</button>
 <hr>
 <a href="<%= tap_path(@conn, :index) %>">Sign out</a>

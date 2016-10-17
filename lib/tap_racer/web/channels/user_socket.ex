@@ -4,7 +4,7 @@ defmodule TapRacer.UserSocket do
   ## Channels
   channel "console", TapRacer.ConsoleChannel
   channel "play", TapRacer.PlayChannel
-  # channel "chat:*", TapRacer.ChatChannel
+  channel "chat:*", TapRacer.ChatChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -18,18 +18,18 @@ defmodule TapRacer.UserSocket do
   # def connect(%{token: token}, socket) do
   #   case find_user(token) do
   #     {:ok, user} ->
-  #       {:ok, assign(socket, :user, user)}
+  #       {:ok, assign(socket, :user_id, user.id)}
   #     _other ->
   #       :error
   #   end
   # end
-  # def connect(_other, _socket) do: :error
+  # def connect(_params, _socket) do: :error
 
   # Anonymous socket
   def id(_socket), do: nil
 
-  # def id(socket), do: "user_socket:#{socket.assigns.user.id}"
+  # def id(socket), do: "users_socket:#{socket.assigns.user_id}"
   #
-  # # Use to diconnect all sockets for user '123'
-  # TapRacer.Endpoint.broadcast("user_socket:123", "disconnect", %{})
+  # # Disconnect all user's socket connections and their multiplexed channels
+  # TapRacer.Endpoint.broadcast("users_socket:" <> user.id, "disconnect", %{})
 end

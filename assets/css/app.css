@@ -8,3 +8,53 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+body {
+  overflow: hidden;
+  background: #EEEEEE;
+}
+
+#content {
+  height: 100%;
+}
+
+#logo {
+  vertical-align: text-bottom;
+}
+
+#messages {
+  background: white;
+  margin: 0px;
+  position: absolute;
+  top: 62px;
+  bottom: 54px;
+  left: 15px;
+  right: 15px;
+  overflow-y: scroll;
+}
+
+#controls {
+  height: 34px;
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  right: 0px;
+}
+
+#name-group {
+  width: 120px;
+  float: left;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+#text-group {
+  overflow: hidden;
+  display: block;
+}
+
+#send {
+  float: right;
+  margin-left: 5px;
+  display: inline-block;
+}

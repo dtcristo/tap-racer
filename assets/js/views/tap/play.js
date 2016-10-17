@@ -5,7 +5,7 @@ export default class TapPlayView extends MainView {
   mount() {
     super.mount()
 
-    let name = this.getQueryParams()["name"]
+    let name = $("#tapper").data("name")
     let channel = socket.channel("play", {name: name})
 
     $(".tap").on("click touchstart", event => {
@@ -27,18 +27,5 @@ export default class TapPlayView extends MainView {
   unmount() {
     super.unmount()
     console.log("TapPlayView unmounted")
-  }
-
-  getQueryParams()
-  {
-    let params = []
-    let hashes = document.location.search.slice(1).split("&")
-    for(let i = 0; i < hashes.length; i++)
-    {
-      let hash = hashes[i].split("=")
-      params.push(hash[0])
-      params[hash[0]] = hash[1]
-    }
-    return params
   }
 }
