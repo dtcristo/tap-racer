@@ -44,9 +44,9 @@ defmodule TapRacer.UserSocket do
 end
 ```
 
-* `channel/2` allows us to define topics (or rooms) for the socket. In my example I have two topics an each is directed to a different channel module.
+* `channel/2` allows us to define topics (or rooms) for the socket. In my example I have two topics an each is directed to a different channel module. This is similar to mapping HTTP paths to a controller in the router.
 * `transport/2` allows us to specify the transport protocols accepted by the socket. Only WebSocket is enabled by default, but by enabling `:longpoll` channels can work with older browsers and clients that do not support WebSockets.
-* `connect/2` is called whenever a new client attempts to make a connection with the server. Authenticate a client before opening the connection. `socket` is a struct analagous to `conn` (for HTTP requests) and represents the state of this connection between the client an the server. `params` are parameters submitted by the client on connection. We can use the params to autenticate the user in some way, we return `{:ok, socket}` on successful authentication otherwise we return `:error`.
+* `connect/2` is called whenever a new client attempts to make a connection with the server. Authenticate a client before opening the connection. `socket` is a struct analogous to `conn` (for HTTP requests) and represents the state of this connection between the client an the server. `params` are parameters submitted by the client on connection. We can use the params to authenticate the user in some way, we return `{:ok, socket}` on successful authentication otherwise we return `:error`.
 * `id/1` allows you to identify a socket by a topic string. The can be used if we wanted to forcibly disconnect a user's socket.
 
 ## Connecting to Socket
@@ -74,3 +74,42 @@ export default socket
 * Channels allows multiplexing of multiple topics over a single socket.
 * A client can subscribe to one or more topics, each of these subscriptions spawn a channel process that communicates the socket process.
 * Client-server communication can be across a single WebSocket connection.
+
+```elixir
+defmodule MyApp.ChatChannel do
+  use MyApp.Web, :channel
+
+  intercept ["new_msg"]
+
+  def join("chat:lobby", _payload, socket) do
+    {:ok, socket}
+  end
+
+  def join("chat:secret", _payload, socket) do
+    {:error, %{reason: "You don't have permission!"}}
+  end
+
+  def join("chat:" <> room_id, _payload, socket) do
+    {:ok, socket}
+  end
+
+  def handle_in(message, payload, socket) do
+    broadcast! socket, "new_msg", payload
+    {:noreply, socket}
+  end
+
+  def handle_out(message, payload, socket) do
+    # Customise payload
+    push socket, "new_msg", payload
+    {:noreply, socket}
+  end
+
+  def terminate(message, socket) do
+    # clean up anything that needs to be
+    # most of the time, you can leave this blank
+  end
+end
+```
+
+* `join/3` authorises a client to join a channel topic when the client subscribes.
+* `handle_in/3` is called when an authorised user sends a message on the channel. Here we might do something with the message, like persist it in a database and broadcast it to all other users.
