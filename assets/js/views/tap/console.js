@@ -5,6 +5,7 @@ export default class TapConsoleView extends MainView {
   mount() {
     super.mount()
 
+    this.maxScore = 150
     let channel = socket.channel("console", {})
 
     channel.on("user_join", payload => {
@@ -63,7 +64,7 @@ export default class TapConsoleView extends MainView {
       let score = this.getScore($player)
       score++
       this.setScore($player, score)
-      if (score === 250) {
+      if (score === this.maxScore) {
         this.gameLive = false
         console.log("gameLive = false")
         alert(`${name} wins!`)
@@ -111,7 +112,7 @@ export default class TapConsoleView extends MainView {
 
   setScore($player, score) {
     $player.find(".progress-bar").attr("aria-valuenow", score)
-                                 .attr("style", `width: ${score/2.5}%;`)
+                                 .attr("style", `width: ${score/(this.maxScore/100)}%;`)
   }
 
   flashMessage(message) {
