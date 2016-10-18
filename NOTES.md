@@ -1,9 +1,10 @@
 # Phoenix Sockets and Channels
 
-* The Channel abstraction provided by Phoenix allow us to build compelling soft-realtime systems that can be scaled really easily.
-* Channels are essentially an abstraction over the WebSocket protocol and allows non-Elixir
+## Introduction
+* I'm David. I'll be talking about Phoenix Channels, how they work, and how you can use them to build a simple multiplayer game.
+* Channels allow us to build soft-realtime systems that can be scaled really easily. Channels are essentially an abstraction over the WebSocket protocol and allows non-Elixir clients (such as a browser) to communicate in a similar way to Elixir processes.
 
-## Demo
+## Demo - TapRacer
 
 ## WebSocket protocol
 * Persistent bi-directional connection between client and server.
@@ -19,8 +20,6 @@ defmodule TapRacer.Endpoint do
   use Phoenix.Endpoint, otp_app: :tap_racer
 
   socket "/socket", TapRacer.UserSocket
-
-  #...
 end
 ```
 
@@ -34,7 +33,7 @@ defmodule TapRacer.UserSocket do
   ## Channels
   channel "console", TapRacer.ConsoleChannel
   channel "play", TapRacer.PlayChannel
-  # channel "chat:*", TapRacer.ChatChannel
+  channel "chat:*", TapRacer.ChatChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -64,7 +63,6 @@ end
 import {Socket} from "phoenix"
 
 let socket = new Socket("/socket", {})
-// let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 export default socket
@@ -77,18 +75,13 @@ export default socket
 
 ## Channels
 * Channels allows multiplexing of multiple topics over a single socket.
-* A client can subscribe to one or more topics, each of these subscriptions spawn a channel process that communicates the socket process.
-* Client-server communication can be across a single WebSocket connection.
+* A client can subscribe to one or more topics, each of these subscriptions spawn a channel process that communicates with the socket process.
+* All client-server communication can be across a single WebSocket connection.
 
 ```elixir
 defmodule TapRacer.ChatChannel do
   use TapRacer.Web, :channel
 
-  intercept ["new_msg"]
-
-  def join("chat:lobby", _params, socket) do
-    {:ok, socket}
-  end
   def join("chat:secret", _params, socket) do
     {:error, %{reason: "You don't have permission!"}}
   end
@@ -100,6 +93,8 @@ defmodule TapRacer.ChatChannel do
     broadcast! socket, "new_msg", payload
     {:noreply, socket}
   end
+
+  intercept ["new_msg"]
 
   def handle_out(event, payload, socket) do
     push socket, "new_msg", payload
@@ -113,26 +108,35 @@ end
 
 * `join/3` authorises a client to join a channel topic when the client subscribes.
 * `handle_in/3` is called when an authorised user sends a message on the channel. Here we might do something with the message, like persist it in a database and broadcast it to all other users.
-* `handle_out/3` is called for each subscribed client just before an outbound message is sent. It can be used to customise the message for the specific client, or filtering the message entirely.
+* `handle_out/3` is called for each subscribed client just before an outbound message is sent. It can be used to customise the message for the specific client, or filtering the message entirely. For `handle_out/3` to be triggered, the message must first be intercepted. A list of events can be given to the `intercept` macro.
 * `terminate/2` is called when a client leaves or disconnects from the channel. We can use this to clean up things.
 
 ## Joining a Channel
 
 ```javascript
-let channel = socket.channel("play", {name: name})
+let channel = socket.channel("chat:lobby", {name: "David"})
 
-$(".tap").on("click touchstart", event => {
-  console.log("tap")
-  channel.push("tap")
+channel.on("new_msg", payload => {
+  // Render message
 })
 
 channel.join()
   .receive("ok", resp => {
-    console.log("Joined 'play' channel", resp)
+    // Join success
   })
   .receive("error", resp => {
-    console.log("Error joining 'play' channel", resp)
+    // Join error
   })
 
-channel.push('new_msg', {body: 'Hello World!'})
+channel.push("new_msg", {text: "Hello World!"})
 ```
+
+* Add a channel with a topic and join parameters.
+* Create callbacks for specific events on the channels.
+* Join the channel with callbacks for success and error.
+* When we want to send a message to the server, we call `push()` on the channel with the event name and a payload.
+
+## Questions?
+* Find me, @dtcriso on Twitter and GitHub. Shoot me a tweet or a pull request.
+* All the code and notes for tonight are on GitHub. http://github.com/dtcriso/tap-racer.
+* I'm a senior developer at Hardhat a digital agency. We're hiring at the moment, looking for some rad developers. We mostly do Rails web-apps but we're always looking into new technologies. We've used Elxir a little but not in anything for production, yet. If you're interested, checkout our website http://hardhat.com.au/ or contact me.
