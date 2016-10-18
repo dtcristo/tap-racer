@@ -50,7 +50,7 @@ end
 * The Socket is responsible for wiring Transports to Channels.
 * The `channel` macro allows us to define topics (or rooms) for the socket. In my example I have three topics an each is directed to a different channel module. This is similar to mapping HTTP paths to a controller in the router.
 * The `transport` macro allows us to specify the transport protocols accepted by the socket. Only WebSocket is enabled by default, but by enabling `:longpoll` channels can work with older browsers and clients that do not support WebSockets.
-* `connect/2` is called whenever a new client attempts to make a connection with the server. Authenticate a client before opening the connection. `socket` is a struct analogous to `conn` (for HTTP requests) and represents the state of this connection between the client an the server. `params` are parameters submitted by the client on connection. We can use the params to authenticate the user in some way, we return `{:ok, socket}` on successful authentication otherwise we return `:error`.
+* `connect/2` is called whenever a new client attempts to make a connection with the server and used to authenticate a client before opening the connection. `socket` is a struct analogous to `conn` (for HTTP requests) and represents the state of this connection between the client an the server. `params` are parameters submitted by the client on connection. We can use the params to authenticate the user in some way, we return `{:ok, socket}` on successful authentication otherwise we return `:error`.
 * `id/1` allows you to identify a socket by a topic string. The can be used if we wanted to forcibly disconnect a user's socket.
 
 ## Connecting to Socket
@@ -135,6 +135,9 @@ channel.push("new_msg", {text: "Hello World!"})
 * Create callbacks for specific events on the channels.
 * Join the channel with callbacks for success and error.
 * When we want to send a message to the server, we call `push()` on the channel with the event name and a payload.
+
+# Extra
+* Phoenix 1.2 added Presence which is a way to know which users are online across a cluster of Elixir nodes. It can also be used for service discovery. Maybe someone can talk about this next month.
 
 ## Questions?
 * Find me, @dtcriso on Twitter and GitHub. Shoot me a tweet or a pull request.
