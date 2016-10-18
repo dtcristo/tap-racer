@@ -41,13 +41,6 @@ body {
   right: 0px;
 }
 
-#name-group {
-  width: 120px;
-  float: left;
-  margin-right: 5px;
-  display: inline-block;
-}
-
 #text-group {
   overflow: hidden;
   display: block;

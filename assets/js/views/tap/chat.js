@@ -5,6 +5,7 @@ export default class TapChatView extends MainView {
   mount() {
     super.mount()
 
+    let name = window.prompt("What is your name?") || "Anonymous"
     let room = $("#messages").data("room")
     let channel = socket.channel(`chat:${room}`);
 
@@ -25,9 +26,8 @@ export default class TapChatView extends MainView {
 
     $('form').submit(event => {
       event.preventDefault();
-      let name = $('#name').val();
       let text = $('#text').val();
-      if (name === '' || text === '') { return; }
+      if (text === '') { return; }
 
       channel.push("new_msg", {
         name: name,
@@ -38,6 +38,7 @@ export default class TapChatView extends MainView {
       $('#text').focus();
     });
 
+    $('#text').focus();
     console.log("TapChatView mounted");
   }
 
