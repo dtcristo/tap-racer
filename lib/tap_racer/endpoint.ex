@@ -1,8 +1,6 @@
 defmodule TapRacer.Endpoint do
   use Phoenix.Endpoint, otp_app: :tap_racer
 
-  # Directs WebSocket connections to UserSocket module
-  # ws://localhost:4000/socket #=> TapRacer.UserSocket
   socket "/socket", TapRacer.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
