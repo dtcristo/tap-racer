@@ -1,6 +1,5 @@
 <h1>
-  TapRacer<br>
-  <small class="message"></small>
+  TapRacer <button type="button" class="btn btn-default" id="start">Start game</button> <small class="message"></small>
 </h1>
 <hr>
 <div class="players"></div>

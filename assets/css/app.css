@@ -9,19 +9,6 @@
   user-select: none;
 }
 
-body {
-  overflow: hidden;
-  background: #EEEEEE;
-}
-
-#content {
-  height: 100%;
-}
-
-#logo {
-  vertical-align: text-bottom;
-}
-
 #messages {
   background: white;
   margin: 0px;

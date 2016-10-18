@@ -1,7 +1,7 @@
-<div class="container-fluid" id="content">
-  <div class="container-fluid" id="header">
+<div class="container-fluid">
+  <div class="container-fluid">
     <h3>
-      Chat room: <%= @room %>
+      TapRacer [<%= @room %>] <small><a href="/">back</a></small>
     </h3>
   </div>
   <div class="well" id="messages" data-room="<%= @room %>">

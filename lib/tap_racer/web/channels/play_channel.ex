@@ -7,7 +7,8 @@ defmodule TapRacer.PlayChannel do
     TapRacer.Endpoint.broadcast(
       "console", "user_join", %{name: safe_name, user_id: user_id}
     )
-    {:ok, assign(socket, :user_id, user_id)}
+    socket = socket |> assign(:name, safe_name) |> assign(:user_id, user_id)
+    {:ok, socket}
   end
 
   def terminate(_reason, socket) do
@@ -18,7 +19,8 @@ defmodule TapRacer.PlayChannel do
 
   def handle_in("tap", _payload, socket) do
     TapRacer.Endpoint.broadcast(
-      "console", "user_tap", %{user_id: socket.assigns.user_id}
+      "console", "user_tap",
+      %{name: socket.assigns.name, user_id: socket.assigns.user_id}
     )
     {:noreply, socket}
   end

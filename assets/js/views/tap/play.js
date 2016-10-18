@@ -5,7 +5,7 @@ export default class TapPlayView extends MainView {
   mount() {
     super.mount()
 
-    let name = $("#tapper").data("name")
+    let name = window.prompt("What is your name?") || "Anonymous"
     let channel = socket.channel("play", {name: name})
 
     $(".tap").on("click touchstart", event => {

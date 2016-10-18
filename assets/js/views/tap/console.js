@@ -10,14 +10,18 @@ export default class TapConsoleView extends MainView {
     channel.on("user_join", payload => {
       this.handleJoin(payload["name"], payload["user_id"])
     })
+
     channel.on("user_terminate", payload => {
       this.handleTerminate(payload["user_id"])
     })
+
     channel.on("user_tap", payload => {
+      this.handleJoin(payload["name"], payload["user_id"])
       if (this.gameLive) {
         this.handleTap(payload["user_id"])
       }
     })
+
     channel.join()
       .receive("ok", resp => {
         console.log("Joined 'console' channel", resp)
@@ -26,7 +30,11 @@ export default class TapConsoleView extends MainView {
         console.log("Error joining 'console' channel", resp)
       })
 
-    this.resetGame()
+    $("#start").on("click", event => {
+      this.gameLive = false
+      this.resetGame()
+    })
+
     console.log("TapConsoleView mounted")
   }
 
@@ -59,7 +67,6 @@ export default class TapConsoleView extends MainView {
         this.gameLive = false
         console.log("gameLive = false")
         alert(`${name} wins!`)
-        this.resetGame()
       }
     }
   }
@@ -75,7 +82,7 @@ export default class TapConsoleView extends MainView {
   addPlayer(name, userId) {
     $(".players").append(`
       <div class="player" data-user-id="${userId}">
-        <h3 class="player-name">${name}</h3>
+        <b class="player-name">${name}</b>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
         </div>
@@ -88,11 +95,11 @@ export default class TapConsoleView extends MainView {
                       .attr("style", "width: 0%;")
 
     this.flashMessage("Get ready")
-    window.setTimeout(() => { this.flashMessage("3") }, 1000);
-    window.setTimeout(() => { this.flashMessage("2") }, 2000);
-    window.setTimeout(() => { this.flashMessage("1") }, 3000);
+    window.setTimeout(() => { this.flashMessage("3") }, 1000)
+    window.setTimeout(() => { this.flashMessage("2") }, 2000)
+    window.setTimeout(() => { this.flashMessage("1") }, 3000)
     window.setTimeout(() => {
-      this.showMessage("Tap!")
+      this.flashMessage("Tap!")
       this.gameLive = true
       console.log("gameLive = true")
     }, 4000)
@@ -109,9 +116,5 @@ export default class TapConsoleView extends MainView {
 
   flashMessage(message) {
     $(".message").text(message).fadeTo(0,100).fadeTo(1000,0)
-  }
-
-  showMessage(message) {
-    $(".message").text(message).fadeTo(0,100)
   }
 }
