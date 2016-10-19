@@ -1,11 +1,14 @@
 import MainView from "../main"
 import socket from "../../socket"
+import Stopwatch from "../../stopwatch"
 
 export default class TapConsoleView extends MainView {
   mount() {
     super.mount()
 
     this.maxScore = 150
+    this.stopwatch = new Stopwatch(document.querySelector(".stopwatch"))
+
     let channel = socket.channel("console", {})
 
     channel.on("user_join", payload => {
@@ -32,8 +35,9 @@ export default class TapConsoleView extends MainView {
       })
 
     $("#start").on("click", event => {
-      this.gameLive = false
-      this.resetGame()
+      this.stopGame()
+      this.clearGame()
+      this.startGame()
     })
 
     console.log("TapConsoleView mounted")
@@ -65,8 +69,7 @@ export default class TapConsoleView extends MainView {
       score++
       this.setScore($player, score)
       if (score === this.maxScore) {
-        this.gameLive = false
-        console.log("gameLive = false")
+        this.stopGame()
         alert(`${name} wins!`)
       }
     }
@@ -91,16 +94,26 @@ export default class TapConsoleView extends MainView {
     `)
   }
 
-  resetGame() {
+  stopGame() {
+    this.stopwatch.stop()
+    this.gameLive = false
+  }
+
+  clearGame() {
     $(".progress-bar").attr("aria-valuenow", "0")
                       .attr("style", "width: 0%;")
+    this.stopwatch.reset()
+    this.stopwatch.print()
+  }
 
+  startGame() {
     this.flashMessage("Get ready")
     window.setTimeout(() => { this.flashMessage("3") }, 1000)
     window.setTimeout(() => { this.flashMessage("2") }, 2000)
     window.setTimeout(() => { this.flashMessage("1") }, 3000)
     window.setTimeout(() => {
       this.flashMessage("Tap!")
+      this.stopwatch.start()
       this.gameLive = true
       console.log("gameLive = true")
     }, 4000)
