@@ -142,6 +142,6 @@ channel.push("new_msg", {text: "Hello World!"})
 * Phoenix 1.2 added Presence which is a way to know which clients are online across a cluster of Elixir nodes. It can also be used for service discovery. Maybe someone can talk about this next month.
 
 ## Questions?
-* Find me, @dtcriso on Twitter and GitHub. Shoot me a tweet or a pull request.
+* Find me, @dtcristo on Twitter and GitHub. Shoot me a tweet or a pull request.
 * All the code and notes for tonight are on GitHub. http://github.com/dtcriso/tap-racer.
 * I'm a senior developer at Hardhat a digital agency. We're hiring at the moment, looking for some rad developers. We mostly do Rails web-apps but we're always looking into new technologies. We've used Elixir a little but not in anything for production, yet. If you're interested, checkout our website http://hardhat.com.au/ or contact me.
