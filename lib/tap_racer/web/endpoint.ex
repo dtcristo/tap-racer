@@ -1,7 +1,7 @@
-defmodule TapRacer.Endpoint do
+defmodule TapRacer.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :tap_racer
 
-  socket "/socket", TapRacer.UserSocket
+  socket "/socket", TapRacer.Web.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -36,7 +36,19 @@ defmodule TapRacer.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_tap_racer_key",
-    signing_salt: "vF2oZ0HC"
+    signing_salt: "wxx3U5GV"
 
-  plug TapRacer.Router
+  plug TapRacer.Web.Router
+
+  @doc """
+  Dynamically loads configuration from the system environment
+  on startup.
+
+  It receives the endpoint configuration from the config files
+  and must return the updated configuration.
+  """
+  def load_from_system_env(config) do
+    port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
+    {:ok, Keyword.put(config, :http, [:inet6, port: port])}
+  end
 end

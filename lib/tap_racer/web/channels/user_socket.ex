@@ -1,35 +1,39 @@
-defmodule TapRacer.UserSocket do
+defmodule TapRacer.Web.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "console", TapRacer.ConsoleChannel
-  channel "play", TapRacer.PlayChannel
-  channel "chat:*", TapRacer.ChatChannel
+  channel "console", TapRacer.Web.ConsoleChannel
+  channel "play", TapRacer.Web.PlayChannel
+  channel "chat:*", TapRacer.Web.ChatChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll
 
-  # Un-authenticated socket
+  # Socket params are passed from the client and can
+  # be used to verify and authenticate a user. After
+  # verification, you can put default assigns into
+  # the socket that will be set for all channels, ie
+  #
+  #     {:ok, assign(socket, :user_id, verified_user_id)}
+  #
+  # To deny connection, return `:error`.
+  #
+  # See `Phoenix.Token` documentation for examples in
+  # performing token verification on connect.
   def connect(_params, socket) do
     {:ok, socket}
   end
 
-  # def connect(%{token: token}, socket) do
-  #   case find_user(token) do
-  #     {:ok, user} ->
-  #       {:ok, assign(socket, :user_id, user.id)}
-  #     _other ->
-  #       :error
-  #   end
-  # end
-  # def connect(_params, _socket) do: :error
-
-  # Anonymous socket
-  def id(_socket), do: nil
-
-  # def id(socket), do: "users_socket:#{socket.assigns.user_id}"
+  # Socket id's are topics that allow you to identify all sockets for a given user:
   #
-  # # Disconnect all user's socket connections and their multiplexed channels
-  # TapRacer.Endpoint.broadcast("users_socket:" <> user.id, "disconnect", %{})
+  #     def id(socket), do: "user_socket:#{socket.assigns.user_id}"
+  #
+  # Would allow you to broadcast a "disconnect" event and terminate
+  # all active sockets and channels for a given user:
+  #
+  #     TapRacer.Web.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #
+  # Returning `nil` makes this socket anonymous.
+  def id(_socket), do: nil
 end

@@ -1,4 +1,4 @@
-defmodule TapRacer.ErrorView do
+defmodule TapRacer.Web.ErrorView do
   use TapRacer.Web, :view
 
   def render("404.html", _assigns) do

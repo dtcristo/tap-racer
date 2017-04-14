@@ -1,4 +1,4 @@
-defmodule TapRacer.Router do
+defmodule TapRacer.Web.Router do
   use TapRacer.Web, :router
 
   pipeline :browser do
@@ -13,7 +13,7 @@ defmodule TapRacer.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TapRacer do
+  scope "/", TapRacer.Web do
     pipe_through :browser # Use the default browser stack
 
     get "/", TapController, :index
@@ -24,7 +24,7 @@ defmodule TapRacer.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TapRacer do
+  # scope "/api", TapRacer.Web do
   #   pipe_through :api
   # end
 end

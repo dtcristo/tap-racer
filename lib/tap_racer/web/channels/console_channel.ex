@@ -1,4 +1,4 @@
-defmodule TapRacer.ConsoleChannel do
+defmodule TapRacer.Web.ConsoleChannel do
   use Phoenix.Channel
 
   def join("console", _params, socket) do

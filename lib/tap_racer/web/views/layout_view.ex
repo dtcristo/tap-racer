@@ -1,4 +1,4 @@
-defmodule TapRacer.LayoutView do
+defmodule TapRacer.Web.LayoutView do
   use TapRacer.Web, :view
 
   @doc """

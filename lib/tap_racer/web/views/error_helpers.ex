@@ -1,4 +1,4 @@
-defmodule TapRacer.ErrorHelpers do
+defmodule TapRacer.Web.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule TapRacer.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(TapRacer.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(TapRacer.Web.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(TapRacer.Gettext, "errors", msg, opts)
+      Gettext.dgettext(TapRacer.Web.Gettext, "errors", msg, opts)
     end
   end
 end

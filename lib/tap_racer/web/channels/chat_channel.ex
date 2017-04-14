@@ -1,4 +1,4 @@
-defmodule TapRacer.ChatChannel do
+defmodule TapRacer.Web.ChatChannel do
   use TapRacer.Web, :channel
 
   def join("chat:secret", _params, socket) do

@@ -16,24 +16,19 @@ defmodule TapRacer.Web do
   below.
   """
 
-  def model do
-    quote do
-      # Define common model functionality
-    end
-  end
-
   def controller do
     quote do
-      use Phoenix.Controller
-
-      import TapRacer.Router.Helpers
-      import TapRacer.Gettext
+      use Phoenix.Controller, namespace: TapRacer.Web
+      import Plug.Conn
+      import TapRacer.Web.Router.Helpers
+      import TapRacer.Web.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/tap_racer/web/templates"
+      use Phoenix.View, root: "lib/tap_racer/web/templates",
+                        namespace: TapRacer.Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -41,22 +36,24 @@ defmodule TapRacer.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import TapRacer.Router.Helpers
-      import TapRacer.ErrorHelpers
-      import TapRacer.Gettext
+      import TapRacer.Web.Router.Helpers
+      import TapRacer.Web.ErrorHelpers
+      import TapRacer.Web.Gettext
     end
   end
 
   def router do
     quote do
       use Phoenix.Router
+      import Plug.Conn
+      import Phoenix.Controller
     end
   end
 
   def channel do
     quote do
       use Phoenix.Channel
-      import TapRacer.Gettext
+      import TapRacer.Web.Gettext
     end
   end
 

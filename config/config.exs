@@ -6,10 +6,10 @@
 use Mix.Config
 
 # Configures the endpoint
-config :tap_racer, TapRacer.Endpoint,
+config :tap_racer, TapRacer.Web.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "uFhtLlemAvvtmg+LoC8rr5V61lfxyHqRQOiBQMpeBx8c4VvDtnOwx+AzALGVLlvP",
-  render_errors: [view: TapRacer.ErrorView, accepts: ~w(html json)],
+  secret_key_base: "y5kt3EWkqTzlQ1HdC7k2df5dHKucJC0hKHOG/2WRrkm5tsHf94vAetul4qNuVg9T",
+  render_errors: [view: TapRacer.Web.ErrorView, accepts: ~w(html json)],
   pubsub: [name: TapRacer.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
