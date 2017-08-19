@@ -16,22 +16,22 @@
 * Sockets in Phoenix are defined in the application's Endpoint.
 
 ```elixir
-defmodule TapRacer.Endpoint do
+defmodule TapRacerWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :tap_racer
 
-  socket "/socket", TapRacer.UserSocket
+  socket "/socket", TapRacerWeb.UserSocket
 end
 ```
 
 * The `socket` macro defines a WebSocket upgrade endpoint. It directs connections to the UserSocket module. `ws://localhost:4000/socket`
 
 ```elixir
-defmodule TapRacer.UserSocket do
+defmodule TapRacerWeb.UserSocket do
   use Phoenix.Socket
 
-  channel "console", TapRacer.ConsoleChannel
-  channel "play", TapRacer.PlayChannel
-  channel "chat:*", TapRacer.ChatChannel
+  channel "console", TapRacerWeb.ConsoleChannel
+  channel "play", TapRacerWeb.PlayChannel
+  channel "chat:*", TapRacerWeb.ChatChannel
 
   transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll
@@ -77,8 +77,8 @@ export default socket
 * All client-server communication can be across a single WebSocket connection.
 
 ```elixir
-defmodule TapRacer.ChatChannel do
-  use TapRacer.Web, :channel
+defmodule TapRacerWeb.ChatChannel do
+  use TapRacerWeb, :channel
 
   def join("chat:secret", _params, socket) do
     {:error, %{reason: "You don't have permission!"}}

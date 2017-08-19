@@ -1,5 +1,5 @@
-defmodule TapRacer.Web.ChatChannel do
-  use TapRacer.Web, :channel
+defmodule TapRacerWeb.ChatChannel do
+  use TapRacerWeb, :channel
 
   def join("chat:secret", _params, socket) do
     {:error, "You don't have permission!"}

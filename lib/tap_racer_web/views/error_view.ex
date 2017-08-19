@@ -1,5 +1,5 @@
-defmodule TapRacer.Web.ErrorView do
-  use TapRacer.Web, :view
+defmodule TapRacerWeb.ErrorView do
+  use TapRacerWeb, :view
 
   def render("404.html", _assigns) do
     "Page not found"

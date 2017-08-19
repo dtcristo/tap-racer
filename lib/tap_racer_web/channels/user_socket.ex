@@ -1,10 +1,10 @@
-defmodule TapRacer.Web.UserSocket do
+defmodule TapRacerWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "console", TapRacer.Web.ConsoleChannel
-  channel "play", TapRacer.Web.PlayChannel
-  channel "chat:*", TapRacer.Web.ChatChannel
+  channel "console", TapRacerWeb.ConsoleChannel
+  channel "play", TapRacerWeb.PlayChannel
+  channel "chat:*", TapRacerWeb.ChatChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -32,7 +32,7 @@ defmodule TapRacer.Web.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     TapRacer.Web.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #     TapRacerWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil

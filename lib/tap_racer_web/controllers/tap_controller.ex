@@ -1,5 +1,5 @@
-defmodule TapRacer.Web.TapController do
-  use TapRacer.Web, :controller
+defmodule TapRacerWeb.TapController do
+  use TapRacerWeb, :controller
 
   def index(conn, _params) do
     render conn, "index.html"

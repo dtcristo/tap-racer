@@ -1,5 +1,5 @@
-defmodule TapRacer.Web.LayoutView do
-  use TapRacer.Web, :view
+defmodule TapRacerWeb.LayoutView do
+  use TapRacerWeb, :view
 
   @doc """
   Generates name for the JavaScript view we want to use

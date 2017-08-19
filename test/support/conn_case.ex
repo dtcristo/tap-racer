@@ -1,4 +1,4 @@
-defmodule TapRacer.Web.ConnCase do
+defmodule TapRacerWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,10 +19,10 @@ defmodule TapRacer.Web.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import TapRacer.Web.Router.Helpers
+      import TapRacerWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint TapRacer.Web.Endpoint
+      @endpoint TapRacerWeb.Endpoint
     end
   end
 
