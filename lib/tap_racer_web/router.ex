@@ -14,7 +14,7 @@ defmodule TapRacerWeb.Router do
   end
 
   scope "/", TapRacerWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", TapController, :index
     get "/console", TapController, :console

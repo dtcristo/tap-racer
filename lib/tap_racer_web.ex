@@ -20,26 +20,28 @@ defmodule TapRacerWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: TapRacerWeb
+
       import Plug.Conn
-      import TapRacerWeb.Router.Helpers
       import TapRacerWeb.Gettext
+      alias TapRacerWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/tap_racer_web/templates",
-                        namespace: TapRacerWeb
+      use Phoenix.View,
+        root: "lib/tap_racer_web/templates",
+        namespace: TapRacerWeb
 
       # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
+      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import TapRacerWeb.Router.Helpers
       import TapRacerWeb.ErrorHelpers
       import TapRacerWeb.Gettext
+      alias TapRacerWeb.Router.Helpers, as: Routes
     end
   end
 
