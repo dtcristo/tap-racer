@@ -2,18 +2,19 @@ defmodule TapRacerWeb.TapController do
   use TapRacerWeb, :controller
 
   def index(conn, _params) do
-    render conn, "index.html"
+    render(conn, "index.html")
   end
 
   def console(conn, _params) do
-    render conn, "console.html"
+    render(conn, "console.html")
   end
 
   def play(conn, _params),
-    do: render conn, "play.html"
+    do: render(conn, "play.html")
 
   def chat(conn, %{"room" => room}),
-    do: render conn, "chat.html", room: room
+    do: render(conn, "chat.html", room: room)
+
   def chat(conn, _params),
-    do: redirect conn, to: "/chat/lobby"
+    do: redirect(conn, to: "/chat/lobby")
 end
