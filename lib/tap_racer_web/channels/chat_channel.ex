@@ -1,11 +1,11 @@
 defmodule TapRacerWeb.ChatChannel do
   use TapRacerWeb, :channel
 
-  def join("chat:secret", _params, socket) do
+  def join("chat:secret", _params, _socket) do
     {:error, "You don't have permission!"}
   end
 
-  def join("chat:" <> room, %{"name" => name}, socket) do
+  def join("chat:" <> _room, %{"name" => name}, socket) do
     safe_name = elem(Phoenix.HTML.html_escape(name), 1)
     {:ok, assign(socket, :name, safe_name)}
   end
