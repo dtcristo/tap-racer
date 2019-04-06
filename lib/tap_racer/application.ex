@@ -8,6 +8,8 @@ defmodule TapRacer.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      TapRacer.Game.Registry,
+      TapRacer.Game.Supervisor,
       # Start the endpoint when the application starts
       TapRacerWeb.Endpoint
       # Starts a worker by calling: TapRacer.Worker.start_link(arg)
