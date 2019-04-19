@@ -15,12 +15,8 @@ defmodule TapRacer.Game.Registry do
     {:via, Registry, {__MODULE__, id}}
   end
 
-  defp lookup(id) do
-    Registry.lookup(__MODULE__, id)
-  end
-
   def find(id) do
-    case lookup(id) do
+    case Registry.lookup(__MODULE__, id) do
       [{pid, _}] -> pid
       [] -> nil
     end
