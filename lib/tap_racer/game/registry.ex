@@ -1,15 +1,14 @@
 defmodule TapRacer.Game.Registry do
-  def child_spec(opts) do
+  def child_spec(args) do
     %{
       id: __MODULE__,
-      start: {__MODULE__, :start_link, [opts]},
+      start: {__MODULE__, :start_link, [args]},
       type: :supervisor,
     }
   end
 
-  def start_link(opts) do
-    IO.puts("TapRacer.Game.Registry start_link")
-    IO.inspect(opts)
+  def start_link(_args) do
+    IO.puts("TapRacer.Game.Registry start_link/1")
     Registry.start_link(keys: :unique, name: __MODULE__)
   end
 

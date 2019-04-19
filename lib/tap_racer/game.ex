@@ -3,10 +3,11 @@ defmodule TapRacer.Game do
 
   # Client
 
-  def start_link(id, opts) do
-    IO.puts("TapRacer.Game start")
-    IO.inspect(id)
-    IO.inspect(opts)
+  def start_link(args) do
+    IO.puts("TapRacer.Game start_link/1")
+    IO.inspect(args)
+    id = Keyword.fetch!(args, :id)
+    opts = [name: TapRacer.Game.Registry.name(id)]
     GenServer.start_link(__MODULE__, initial_state(id), opts)
   end
 
@@ -22,6 +23,8 @@ defmodule TapRacer.Game do
 
   @impl true
   def init(state) do
+    IO.puts("TapRacer.Game init/1")
+    IO.inspect(state)
     {:ok, state}
   end
 

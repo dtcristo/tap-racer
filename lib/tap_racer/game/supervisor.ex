@@ -1,24 +1,20 @@
 defmodule TapRacer.Game.Supervisor do
   use DynamicSupervisor
 
-  def start_link(opts) do
-    IO.puts("TapRacer.Game.Supervisor start_link")
-    IO.inspect(opts)
-    DynamicSupervisor.start_link(__MODULE__, opts, name: __MODULE__)
+  def start_link(_args) do
+    IO.puts("TapRacer.Game.Supervisor start_link/1")
+    DynamicSupervisor.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   def start_child do
-    id = unique_id()
-    name = TapRacer.Game.Registry.name(id)
-    spec = {TapRacer.Game, ids: id, name: name}
+    spec = {TapRacer.Game, id: unique_id()}
     DynamicSupervisor.start_child(__MODULE__, spec)
   end
 
   @impl true
-  def init(args) do
-    IO.puts("TapRacer.Game.Supervisor init")
-    IO.inspect(args)
-    DynamicSupervisor.init(strategy: :one_for_one, extra_arguments: [args])
+  def init(_args) do
+    IO.puts("TapRacer.Game.Supervisor init/1")
+    DynamicSupervisor.init(strategy: :one_for_one)
   end
 
   defp unique_id do
