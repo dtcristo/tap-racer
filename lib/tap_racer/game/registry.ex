@@ -3,12 +3,11 @@ defmodule TapRacer.Game.Registry do
     %{
       id: __MODULE__,
       start: {__MODULE__, :start_link, [args]},
-      type: :supervisor,
+      type: :supervisor
     }
   end
 
   def start_link(_args) do
-    IO.puts("TapRacer.Game.Registry start_link/1")
     Registry.start_link(keys: :unique, name: __MODULE__)
   end
 
@@ -16,20 +15,13 @@ defmodule TapRacer.Game.Registry do
     {:via, Registry, {__MODULE__, id}}
   end
 
-  def lookup(id) do
+  defp lookup(id) do
     Registry.lookup(__MODULE__, id)
   end
 
   def find(id) do
     case lookup(id) do
       [{pid, _}] -> pid
-      [] -> nil
-    end
-  end
-
-  def value(id) do
-    case lookup(id) do
-      [{_, value}] -> value
       [] -> nil
     end
   end
