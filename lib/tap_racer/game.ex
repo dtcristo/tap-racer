@@ -4,8 +4,6 @@ defmodule TapRacer.Game do
   # Client
 
   def start_link(args) do
-    IO.puts("TapRacer.Game start_link/1")
-    IO.inspect(args)
     id = Keyword.fetch!(args, :id)
     opts = [name: TapRacer.Game.Registry.name(id)]
     GenServer.start_link(__MODULE__, initial_state(id), opts)
@@ -15,21 +13,28 @@ defmodule TapRacer.Game do
     %{id: id, players: MapSet.new()}
   end
 
-  # def join(game) do
-  #   GenServer.call(game, :join)
-  # end
+  def state(game) do
+    GenServer.call(game, :state)
+  end
+
+  def join(game, player_id) do
+    GenServer.call(game, {:join, player_id})
+  end
 
   # Server (callbacks)
 
   @impl true
   def init(state) do
-    IO.puts("TapRacer.Game init/1")
-    IO.inspect(state)
     {:ok, state}
   end
 
-  # @impl true
-  # def handle_call(:join, _from, state) do
-  #   {:reply, Map.keys(state), state}
-  # end
+  @impl true
+  def handle_call(:state, _from, state) do
+    {:reply, state, state}
+  end
+
+  @impl true
+  def handle_call({:join, player_id}, _from, state) do
+    {:reply, state, state}
+  end
 end
