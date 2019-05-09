@@ -10,7 +10,7 @@ defmodule TapRacer.Game do
   end
 
   defp initial_state(id) do
-    %{id: id, players: MapSet.new()}
+    %{id: id, players: MapSet.new(), winner: nil}
   end
 
   def state(game) do
@@ -19,6 +19,10 @@ defmodule TapRacer.Game do
 
   def join(game, player_id) do
     GenServer.call(game, {:join, player_id})
+  end
+
+  def notify(game, player_id) do
+    GenServer.call(game, {:notify, player_id})
   end
 
   # Server (callbacks)
@@ -35,6 +39,15 @@ defmodule TapRacer.Game do
 
   @impl true
   def handle_call({:join, player_id}, _from, state) do
-    {:reply, state, state}
+    new_players = state |> Map.fetch!(:players) |> MapSet.put(player_id)
+    {:reply, :ok, Map.put(state, :players, new_players)}
+  end
+
+  @impl true
+  def handle_call({:notify, player_id}, _from, state) do
+    case Map.fetch!(state, :winner) do
+      nil -> {:reply, :win, Map.put(state, :winner, player_id)}
+      winner -> {:reply, :lose, state}
+    end
   end
 end

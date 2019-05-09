@@ -6,12 +6,29 @@ defmodule TapRacer.GameTest do
     %{game: game}
   end
 
-  test "state/1 for empty game has empty player map", %{game: game} do
-    assert TapRacer.Game.state(game) == %{id: "00000000", players: MapSet.new()}
+  test "state/2 for empty game has empty player map", %{game: game} do
+    assert Map.fetch!(TapRacer.Game.state(game), :players) == %MapSet{}
   end
 
-  test "join/1 adds player to player map", %{game: game} do
-    IO.inspect(TapRacer.Game.join(game, "11111111"))
-    assert TapRacer.Game.state(game) == %{id: "00000000", players: MapSet.new()}
+  test "join/2 successfully adds player to player map", %{game: game} do
+    assert TapRacer.Game.join(game, "11111111") == :ok
+
+    assert TapRacer.Game.state(game)
+           |> Map.fetch!(:players)
+           |> MapSet.member?("11111111")
+  end
+
+  test "notify/2 makes the first time caller the winner", %{game: game} do
+    TapRacer.Game.join(game, "11111111")
+    assert TapRacer.Game.notify(game, "11111111") == :win
+    assert TapRacer.Game.state(game) |> Map.fetch!(:winner) == "11111111"
+  end
+
+  test "notify/2 makes the second time caller the loser", %{game: game} do
+    TapRacer.Game.join(game, "11111111")
+    TapRacer.Game.join(game, "22222222")
+    TapRacer.Game.notify(game, "11111111")
+    assert TapRacer.Game.notify(game, "22222222") == :lose
+    assert TapRacer.Game.state(game) |> Map.fetch!(:winner) == "11111111"
   end
 end
