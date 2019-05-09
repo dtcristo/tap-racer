@@ -1,5 +1,5 @@
 defmodule TapRacer.Game.RegistryTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   test "name/1" do
     assert TapRacer.Game.Registry.name("00000000") ==
