@@ -18,10 +18,19 @@ defmodule TapRacer.GameTest do
            |> MapSet.member?("11111111")
   end
 
+  test "join/2 fails with a player with duplicate id already joined", %{game: game} do
+    assert TapRacer.Game.join(game, "11111111") == :ok
+    assert TapRacer.Game.join(game, "11111111") == :error
+  end
+
   test "notify/2 makes the first time caller the winner", %{game: game} do
     TapRacer.Game.join(game, "11111111")
     assert TapRacer.Game.notify(game, "11111111") == :win
     assert GenServer.call(game, :state) |> Map.fetch!(:winner) == "11111111"
+  end
+
+  test "notify/2 fails if player hasn't joined", %{game: game} do
+    assert TapRacer.Game.notify(game, "88888888") == :error
   end
 
   test "notify/2 makes the second time caller the loser", %{game: game} do
@@ -31,4 +40,5 @@ defmodule TapRacer.GameTest do
     assert TapRacer.Game.notify(game, "22222222") == :lose
     assert GenServer.call(game, :state) |> Map.fetch!(:winner) == "11111111"
   end
+
 end
