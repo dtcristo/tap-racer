@@ -40,5 +40,4 @@ defmodule TapRacer.GameTest do
     assert TapRacer.Game.notify(game, "22222222") == :lose
     assert GenServer.call(game, :state) |> Map.fetch!(:winner) == "11111111"
   end
-
 end
