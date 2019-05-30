@@ -35,15 +35,23 @@ defmodule TapRacer.Game do
 
   @impl true
   def handle_call({:join, player_id}, _from, state) do
-    new_players = state |> Map.fetch!(:players) |> MapSet.put(player_id)
-    {:reply, :ok, Map.put(state, :players, new_players)}
+    unless MapSet.member?(Map.fetch!(state, :players), player_id) do
+      new_players = state |> Map.fetch!(:players) |> MapSet.put(player_id)
+      {:reply, :ok, Map.put(state, :players, new_players)}
+    else
+      {:reply, :error, state}
+    end
   end
 
   @impl true
   def handle_call({:notify, player_id}, _from, state) do
-    case Map.fetch!(state, :winner) do
-      nil -> {:reply, :win, Map.put(state, :winner, player_id)}
-      _winner -> {:reply, :lose, state}
+    if MapSet.member?(Map.fetch!(state, :players), player_id) do
+      case Map.fetch!(state, :winner) do
+        nil -> {:reply, :win, Map.put(state, :winner, player_id)}
+        _winner -> {:reply, :lose, state}
+      end
+    else
+      {:reply, :error, state}
     end
   end
 end
