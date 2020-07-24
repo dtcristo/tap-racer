@@ -9,9 +9,9 @@
 
 To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `cd assets && yarn install`
-  * Start Phoenix endpoint with `mix phx.server`
+- Install dependencies with `mix deps.get`
+- Install Node.js dependencies with `cd assets && yarn install`
+- Start Phoenix endpoint with `mix phx.server`
 
 Visit [hostname:4000/console](http://hostname:4000/console) on your desktop to view the game console. Replace `hostname` with your LAN IP address or hostname.
 
