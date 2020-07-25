@@ -1,4 +1,4 @@
-defmodule TapRacer.Game.Registry do
+defmodule TapRacer.GameRegistry do
   def child_spec(args) do
     %{
       id: __MODULE__,

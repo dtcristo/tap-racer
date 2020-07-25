@@ -1,4 +1,4 @@
-defmodule TapRacer.Game.PlayerTest do
+defmodule TapRacer.PlayerTest do
   use ExUnit.Case, async: true
 
   setup do
@@ -14,16 +14,16 @@ defmodule TapRacer.Game.PlayerTest do
   end
 
   test "tap/1 increments tap state by one", %{player: player} do
-    assert TapRacer.Game.Player.tap(player) == :ok
+    assert TapRacer.Player.tap(player) == :ok
     assert %{id: _, game: _, tap_count: 1} = GenServer.call(player, :state)
   end
 
   test "tap/1 100 times triggers notify, 101th is no-op", %{player: player} do
     Enum.each(1..99, fn _ ->
-      assert TapRacer.Game.Player.tap(player) == :ok
+      assert TapRacer.Player.tap(player) == :ok
     end)
 
     assert %{id: _, game: _, tap_count: 99} = GenServer.call(player, :state)
-    assert TapRacer.Game.Player.tap(player) == :ok
+    assert TapRacer.Player.tap(player) == :ok
   end
 end

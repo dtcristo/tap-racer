@@ -5,7 +5,7 @@ defmodule TapRacer.Game do
 
   def start_link(args) do
     id = Keyword.fetch!(args, :id)
-    opts = [name: TapRacer.Game.Registry.name(id)]
+    opts = [name: TapRacer.GameRegistry.name(id)]
     GenServer.start_link(__MODULE__, initial_state(id), opts)
   end
 

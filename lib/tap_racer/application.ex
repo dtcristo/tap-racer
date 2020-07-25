@@ -7,8 +7,8 @@ defmodule TapRacer.Application do
 
   def start(_type, _args) do
     children = [
-      TapRacer.Game.Registry,
-      TapRacer.Game.Supervisor,
+      TapRacer.GameRegistry,
+      TapRacer.GameSupervisor,
       # Start the Ecto repository
       TapRacer.Repo,
       # Start the Telemetry supervisor

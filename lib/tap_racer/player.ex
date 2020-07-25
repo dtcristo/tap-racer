@@ -1,4 +1,4 @@
-defmodule TapRacer.Game.Player do
+defmodule TapRacer.Player do
   use GenServer
 
   # Client

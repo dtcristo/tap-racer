@@ -1,4 +1,4 @@
-defmodule TapRacer.Game.Supervisor do
+defmodule TapRacer.GameSupervisor do
   use DynamicSupervisor
 
   def start_link(_args) do
@@ -16,13 +16,9 @@ defmodule TapRacer.Game.Supervisor do
   end
 
   defp unique_id do
-    id =
-      :rand.uniform(0xFF_FFFF_FFFF)
-      |> Integer.to_string(32)
-      |> String.downcase()
-      |> String.pad_leading(8, "0")
+    id = TapRacer.Utils.generate_id()
 
-    if TapRacer.Game.Registry.exists?(id) do
+    if TapRacer.GameRegistry.exists?(id) do
       unique_id()
     else
       id
