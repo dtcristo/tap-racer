@@ -28,9 +28,7 @@ defmodule TapRacer.Player do
   end
 
   @impl true
-  def handle_cast(:tap, state) do
-    %{id: _, game: _, tap_count: tap_count} = state
-
+  def handle_cast(:tap, %{id: _, game: _, tap_count: tap_count} = state) do
     tap_count =
       cond do
         tap_count >= 100 ->
