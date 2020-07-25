@@ -21,10 +21,10 @@ defmodule TapRacerWeb.Router do
 
     live "/games", GameLive.Index, :index
     live "/games/new", GameLive.Index, :new
-    live "/games/edit/:id", GameLive.Index, :edit
+    live "/games/:id/edit", GameLive.Index, :edit
 
-    live "/games/:id/edit", GameLive.Show, :edit
     live "/games/:id", GameLive.Show, :show
+    live "/games/:id/show/edit", GameLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
