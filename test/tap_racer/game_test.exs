@@ -7,14 +7,14 @@ defmodule TapRacer.GameTest do
   end
 
   test "state/2 for empty game has empty player map", %{game: game} do
-    assert GenServer.call(game, :state) |> Map.fetch!(:players) == %MapSet{}
+    assert GenServer.call(game, :state) |> Map.fetch!(:player_ids) == %MapSet{}
   end
 
   test "join/2 successfully adds player to player map", %{game: game} do
     assert TapRacer.Game.join(game, "aaaaaaaa") == :ok
 
     assert GenServer.call(game, :state)
-           |> Map.fetch!(:players)
+           |> Map.fetch!(:player_ids)
            |> MapSet.member?("aaaaaaaa")
   end
 
