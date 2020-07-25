@@ -18,6 +18,13 @@ defmodule TapRacerWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    live "/games", GameLive.Index, :index
+    live "/games/new", GameLive.Index, :new
+    live "/games/edit/:id", GameLive.Index, :edit
+
+    live "/games/:id/edit", GameLive.Show, :edit
+    live "/games/:id", GameLive.Show, :show
   end
 
   # Other scopes may use custom stacks.
