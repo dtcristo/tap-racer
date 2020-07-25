@@ -6,14 +6,19 @@ defmodule TapRacer.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
       TapRacer.Game.Registry,
       TapRacer.Game.Supervisor,
-      # Start the endpoint when the application starts
+      # Start the Ecto repository
+      TapRacer.Repo,
+      # Start the Telemetry supervisor
+      TapRacerWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: TapRacer.PubSub},
+      # Start the Endpoint (http/https)
       TapRacerWeb.Endpoint
-      # Starts a worker by calling: TapRacer.Worker.start_link(arg)
-      # {TapRacer.Worker, arg},
+      # Start a worker by calling: TapRacer.Worker.start_link(arg)
+      # {TapRacer.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

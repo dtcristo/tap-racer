@@ -1,5 +1,14 @@
 use Mix.Config
 
+# Configure your database
+config :tap_racer, TapRacer.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "tap_racer_dev",
+  hostname: "localhost",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -49,10 +58,10 @@ config :tap_racer, TapRacerWeb.Endpoint,
 config :tap_racer, TapRacerWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
-      ~r{priv/gettext/.*(po)$},
-      ~r{lib/tap_racer_web/views/.*(ex)$},
-      ~r{lib/tap_racer_web/templates/.*(eex)$}
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/tap_racer_web/(live|views)/.*(ex)$",
+      ~r"lib/tap_racer_web/templates/.*(eex)$"
     ]
   ]
 

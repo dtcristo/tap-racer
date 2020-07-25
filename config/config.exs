@@ -7,12 +7,16 @@
 # General application configuration
 use Mix.Config
 
+config :tap_racer,
+  ecto_repos: [TapRacer.Repo]
+
 # Configures the endpoint
 config :tap_racer, TapRacerWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "VoCAHPEM1OJ7ua1ViTcQGleibCGAo7d65quPCggAAsig/BCqhXVVkbwp2DAdiREP",
-  render_errors: [view: TapRacerWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: TapRacer.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: TapRacerWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: TapRacer.PubSub,
+  live_view: [signing_salt: "SppfIE9s"]
 
 # Configures Elixir's Logger
 config :logger, :console,
