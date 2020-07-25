@@ -4,7 +4,11 @@ defmodule TapRacer.Game.Player do
   # Client
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, 0, args)
+    GenServer.start_link(__MODULE__, initial_state(nil, nil), args)
+  end
+
+  defp initial_state(id, game) do
+    %{id: id, game: game, tap_count: 0}
   end
 
   def tap(game) do
@@ -25,6 +29,21 @@ defmodule TapRacer.Game.Player do
 
   @impl true
   def handle_cast(:tap, state) do
-    {:noreply, state + 1}
+    %{id: _, game: _, tap_count: tap_count} = state
+
+    tap_count =
+      cond do
+        tap_count >= 100 ->
+          tap_count
+
+        tap_count == 99 ->
+          IO.puts("hello")
+          100
+
+        true ->
+          tap_count + 1
+      end
+
+    {:noreply, Map.put(state, :tap_count, tap_count)}
   end
 end
