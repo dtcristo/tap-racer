@@ -11,8 +11,12 @@ defmodule TapRacer.Player do
     %{id: id, game: game, tap_count: 0}
   end
 
-  def tap(game) do
-    GenServer.cast(game, :tap)
+  def state(player) do
+    GenServer.call(player, :state)
+  end
+
+  def tap(player) do
+    GenServer.cast(player, :tap)
   end
 
   # Server (callbacks)

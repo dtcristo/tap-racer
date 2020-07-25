@@ -21,6 +21,10 @@ defmodule TapRacer.Game do
     GenServer.call(game, {:notify, player_id})
   end
 
+  def state(game) do
+    GenServer.call(game, :state)
+  end
+
   # Server (callbacks)
 
   @impl true
