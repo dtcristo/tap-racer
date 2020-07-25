@@ -1,1 +1,9 @@
-<span><%= live_redirect "Games", to: Routes.game_index_path(@socket, :index) %></span>
+<h2>Active Games</h2>
+
+<button phx-click="create_game">Create game</button>
+
+<ul>
+  <%= for game_state <- @game_states do %>
+    <li><%= game_state.id %></li>
+  <% end %>
+</ul>

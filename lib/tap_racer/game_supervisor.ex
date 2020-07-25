@@ -1,6 +1,8 @@
 defmodule TapRacer.GameSupervisor do
   use DynamicSupervisor
 
+  # Client
+
   def start_link(_args) do
     DynamicSupervisor.start_link(__MODULE__, [], name: __MODULE__)
   end
@@ -10,9 +12,8 @@ defmodule TapRacer.GameSupervisor do
     DynamicSupervisor.start_child(__MODULE__, spec)
   end
 
-  @impl true
-  def init(_args) do
-    DynamicSupervisor.init(strategy: :one_for_one)
+  def which_children do
+    DynamicSupervisor.which_children(__MODULE__)
   end
 
   defp unique_id do
@@ -23,5 +24,12 @@ defmodule TapRacer.GameSupervisor do
     else
       id
     end
+  end
+
+  # Server (callbacks)
+
+  @impl true
+  def init(_args) do
+    DynamicSupervisor.init(strategy: :one_for_one)
   end
 end
