@@ -5,8 +5,8 @@ defmodule TapRacer.PlayerTest do
   alias TapRacer.Player
 
   setup do
-    room = start_supervised!({Room, [id: "00000000"]})
-    Room.join(room, "aaaaaaaa")
+    room = start_supervised!({Room, [id: "0000"]})
+    Room.join(room, "aaaa")
     %{id: _, player_ids: player_ids, winner: _} = Room.state(room)
     [player_id | _] = MapSet.to_list(player_ids)
     %{room: room, player: nil}

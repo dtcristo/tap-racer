@@ -4,7 +4,7 @@ defmodule TapRacer.RoomTest do
   alias TapRacer.Room
 
   setup do
-    room = start_supervised!({Room, [id: "00000000"]})
+    room = start_supervised!({Room, [id: "0000"]})
     %{room: room}
   end
 
@@ -13,33 +13,33 @@ defmodule TapRacer.RoomTest do
   end
 
   test "join/2 successfully adds player to player map", %{room: room} do
-    assert Room.join(room, "aaaaaaaa") == :ok
+    assert Room.join(room, "aaaa") == :ok
 
     assert Room.state(room)
            |> Map.fetch!(:player_ids)
-           |> MapSet.member?("aaaaaaaa")
+           |> MapSet.member?("aaaa")
   end
 
   test "join/2 fails with a player with duplicate id already joined", %{room: room} do
-    assert Room.join(room, "aaaaaaaa") == :ok
-    assert Room.join(room, "aaaaaaaa") == :error
+    assert Room.join(room, "aaaa") == :ok
+    assert Room.join(room, "aaaa") == :error
   end
 
   test "notify/2 makes the first time caller the winner", %{room: room} do
-    Room.join(room, "aaaaaaaa")
-    assert Room.notify(room, "aaaaaaaa") == :win
-    assert Room.state(room).winner == "aaaaaaaa"
+    Room.join(room, "aaaa")
+    assert Room.notify(room, "aaaa") == :win
+    assert Room.state(room).winner == "aaaa"
   end
 
   test "notify/2 fails if player hasn't joined", %{room: room} do
-    assert Room.notify(room, "88888888") == :error
+    assert Room.notify(room, "aaaa") == :error
   end
 
   test "notify/2 makes the second time caller the loser", %{room: room} do
-    Room.join(room, "aaaaaaaa")
-    Room.join(room, "bbbbbbbb")
-    Room.notify(room, "aaaaaaaa")
-    assert Room.notify(room, "bbbbbbbb") == :lose
-    assert Room.state(room).winner == "aaaaaaaa"
+    Room.join(room, "aaaa")
+    Room.join(room, "bbbb")
+    Room.notify(room, "aaaa")
+    assert Room.notify(room, "bbbb") == :lose
+    assert Room.state(room).winner == "aaaa"
   end
 end
