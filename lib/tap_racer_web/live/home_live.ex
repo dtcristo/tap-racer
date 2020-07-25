@@ -3,7 +3,7 @@ defmodule TapRacerWeb.HomeLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    if connected?(socket), do: TapRacer.Game.subscribe()
+    if connected?(socket), do: TapRacer.subscribe("games")
     game_states = Enum.map(TapRacer.games(), fn game -> TapRacer.Game.state(game) end)
     {:ok, assign(socket, :game_states, game_states)}
   end

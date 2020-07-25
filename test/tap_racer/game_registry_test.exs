@@ -1,7 +1,8 @@
-defmodule TapRacer.GameRegistryTest do
+defmodule GameRegistryTest do
   use ExUnit.Case
 
   alias TapRacer.GameRegistry
+  alias TapRacer.Game
 
   test "name/1" do
     assert GameRegistry.name("00000000") == {:via, Registry, {GameRegistry, "00000000"}}
@@ -12,7 +13,7 @@ defmodule TapRacer.GameRegistryTest do
   end
 
   test "find/1 when found returns pid" do
-    {:ok, pid} = TapRacer.Game.start_link(id: "22222222")
+    {:ok, pid} = Game.start_link(id: "22222222")
     assert GameRegistry.find("22222222") == pid
   end
 
@@ -21,7 +22,7 @@ defmodule TapRacer.GameRegistryTest do
   end
 
   test "exists?/1 when not found returns true" do
-    TapRacer.Game.start_link(id: "44444444")
+    Game.start_link(id: "44444444")
     assert GameRegistry.exists?("44444444") == true
   end
 
@@ -30,8 +31,8 @@ defmodule TapRacer.GameRegistryTest do
   end
 
   test "count/0 returns correct number of games" do
-    TapRacer.Game.start_link(id: "55555555")
-    TapRacer.Game.start_link(id: "66666666")
+    Game.start_link(id: "55555555")
+    Game.start_link(id: "66666666")
     assert GameRegistry.count() == 2
   end
 end

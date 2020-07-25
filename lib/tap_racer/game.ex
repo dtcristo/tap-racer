@@ -25,15 +25,11 @@ defmodule TapRacer.Game do
     GenServer.call(game, :state)
   end
 
-  def subscribe do
-    Phoenix.PubSub.subscribe(TapRacer.PubSub, "games")
-  end
-
   # Server (callbacks)
 
   @impl true
   def init(state) do
-    broadcast(state, :game_created)
+    TapRacer.broadcast(state, :game_created, "games")
     {:ok, state}
   end
 
@@ -62,9 +58,5 @@ defmodule TapRacer.Game do
     else
       {:reply, :error, state}
     end
-  end
-
-  defp broadcast(state, event) do
-    Phoenix.PubSub.broadcast(TapRacer.PubSub, "games", {event, state})
   end
 end
