@@ -3,19 +3,19 @@ defmodule TapRacerWeb.HomeLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    if connected?(socket), do: TapRacer.subscribe("games")
-    game_states = Enum.map(TapRacer.games(), fn game -> TapRacer.Game.state(game) end)
-    {:ok, assign(socket, :game_states, game_states)}
+    if connected?(socket), do: TapRacer.subscribe("rooms")
+    room_states = Enum.map(TapRacer.rooms(), fn room -> TapRacer.Room.state(room) end)
+    {:ok, assign(socket, :room_states, room_states)}
   end
 
   @impl true
-  def handle_info({:game_created, game_state}, socket) do
-    {:noreply, update(socket, :game_states, fn game_states -> [game_state | game_states] end)}
+  def handle_info({:room_created, room_state}, socket) do
+    {:noreply, update(socket, :room_states, fn room_states -> [room_state | room_states] end)}
   end
 
   @impl true
-  def handle_event("create_game", _, socket) do
-    {:ok, _game} = TapRacer.create_game()
+  def handle_event("create_room", _, socket) do
+    {:ok, _room} = TapRacer.create_room()
     {:noreply, socket}
   end
 end

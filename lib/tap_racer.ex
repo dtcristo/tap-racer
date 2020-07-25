@@ -7,7 +7,7 @@ defmodule TapRacer do
   if it comes from the database, an external API or others.
   """
 
-  alias TapRacer.GameSupervisor
+  alias TapRacer.RoomSupervisor
   alias TapRacer.PubSub
 
   def subscribe(topic) do
@@ -18,13 +18,13 @@ defmodule TapRacer do
     Phoenix.PubSub.broadcast(PubSub, topic, {event, payload})
   end
 
-  def create_game do
-    GameSupervisor.start_child()
+  def create_room do
+    RoomSupervisor.start_child()
   end
 
-  def games do
-    GameSupervisor.which_children()
+  def rooms do
+    RoomSupervisor.which_children()
     |> Enum.reverse()
-    |> Enum.map(fn {_, game, _, _} -> game end)
+    |> Enum.map(fn {_, room, _, _} -> room end)
   end
 end

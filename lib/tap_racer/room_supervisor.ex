@@ -1,4 +1,4 @@
-defmodule TapRacer.GameSupervisor do
+defmodule TapRacer.RoomSupervisor do
   use DynamicSupervisor
 
   # Client
@@ -8,7 +8,7 @@ defmodule TapRacer.GameSupervisor do
   end
 
   def start_child do
-    spec = {TapRacer.Game, id: unique_id()}
+    spec = {TapRacer.Room, id: unique_id()}
     DynamicSupervisor.start_child(__MODULE__, spec)
   end
 
@@ -19,7 +19,7 @@ defmodule TapRacer.GameSupervisor do
   defp unique_id do
     id = TapRacer.Utils.generate_id()
 
-    if TapRacer.GameRegistry.exists?(id) do
+    if TapRacer.RoomRegistry.exists?(id) do
       unique_id()
     else
       id

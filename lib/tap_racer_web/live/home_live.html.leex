@@ -1,9 +1,9 @@
-<h2>Active Games</h2>
+<h2>Active Rooms</h2>
 
-<button phx-click="create_game">Create game</button>
+<button phx-click="create_room">Create room</button>
 
 <ul>
-  <%= for game_state <- @game_states do %>
-    <li><%= game_state.id %></li>
+  <%= for room_state <- @room_states do %>
+    <li><%= room_state.id %></li>
   <% end %>
 </ul>

@@ -1,11 +1,11 @@
-defmodule TapRacer.Game do
+defmodule TapRacer.Room do
   use GenServer
 
   # Client
 
   def start_link(args) do
     id = Keyword.fetch!(args, :id)
-    opts = [name: TapRacer.GameRegistry.name(id)]
+    opts = [name: TapRacer.RoomRegistry.name(id)]
     GenServer.start_link(__MODULE__, initial_state(id), opts)
   end
 
@@ -13,23 +13,23 @@ defmodule TapRacer.Game do
     %{id: id, player_ids: MapSet.new(), winner: nil}
   end
 
-  def join(game, player_id) do
-    GenServer.call(game, {:join, player_id})
+  def join(room, player_id) do
+    GenServer.call(room, {:join, player_id})
   end
 
-  def notify(game, player_id) do
-    GenServer.call(game, {:notify, player_id})
+  def notify(room, player_id) do
+    GenServer.call(room, {:notify, player_id})
   end
 
-  def state(game) do
-    GenServer.call(game, :state)
+  def state(room) do
+    GenServer.call(room, :state)
   end
 
   # Server (callbacks)
 
   @impl true
   def init(state) do
-    TapRacer.broadcast(state, :game_created, "games")
+    TapRacer.broadcast(state, :room_created, "rooms")
     {:ok, state}
   end
 
