@@ -15,7 +15,7 @@ defmodule TapRacerWeb.HomeLive do
 
   @impl true
   def handle_event("create_game", _, socket) do
-    TapRacer.create_game()
+    {:ok, _game} = TapRacer.create_game()
     {:noreply, socket}
   end
 end
