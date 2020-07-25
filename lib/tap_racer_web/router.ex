@@ -17,13 +17,7 @@ defmodule TapRacerWeb.Router do
   scope "/", TapRacerWeb do
     pipe_through :browser
 
-    live "/page-live", PageLive, :index
-
-    get "/", TapController, :index
-    get "/console", TapController, :console
-    get "/play", TapController, :play
-    get "/chat", TapController, :chat
-    get "/chat/:room", TapController, :chat
+    live "/", PageLive, :index
   end
 
   # Other scopes may use custom stacks.

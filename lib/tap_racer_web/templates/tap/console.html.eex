@@ -1,5 +1,0 @@
-<h1>
-  TapRacer <button type="button" class="btn btn-default" id="start">New game</button> <small class="stopwatch"></small> <small class="message"></small>
-</h1>
-<hr>
-<div class="players"></div>

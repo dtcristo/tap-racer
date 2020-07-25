@@ -2,9 +2,7 @@ defmodule TapRacerWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "console", TapRacerWeb.ConsoleChannel
-  channel "play", TapRacerWeb.PlayChannel
-  channel "chat:*", TapRacerWeb.ChatChannel
+  # channel "room:*", TapRacerWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
