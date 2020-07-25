@@ -17,7 +17,7 @@ defmodule TapRacerWeb.Router do
   scope "/", TapRacerWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", HomeLive, :index
 
     live "/games", GameLive.Index, :index
     live "/games/new", GameLive.Index, :new
