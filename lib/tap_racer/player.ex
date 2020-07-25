@@ -3,8 +3,8 @@ defmodule TapRacer.Player do
 
   # Client
 
-  def start_link(args) do
-    GenServer.start_link(__MODULE__, initial_state(nil, nil), args)
+  def start_link(_args) do
+    GenServer.start_link(__MODULE__, initial_state(nil, nil))
   end
 
   defp initial_state(id, game) do
