@@ -18,6 +18,8 @@ defmodule TapRacerWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive, :index
+    live "/r/:id", RoomLive, :index
+    live "/p/:id", PlayLive, :index
 
     live "/games", GameLive.Index, :index
     live "/games/new", GameLive.Index, :new

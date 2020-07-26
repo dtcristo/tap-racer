@@ -15,7 +15,8 @@ defmodule TapRacerWeb.HomeLive do
 
   @impl true
   def handle_event("create_room", _, socket) do
-    {:ok, _room} = TapRacer.create_room()
-    {:noreply, socket}
+    {:ok, room} = TapRacer.create_room()
+    room_state = TapRacer.Room.state(room)
+    {:noreply, push_redirect(socket, to: Routes.room_path(socket, :index, room_state.id))}
   end
 end
