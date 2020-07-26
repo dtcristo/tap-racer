@@ -4,6 +4,10 @@
 
 <ul id="rooms" phx-update="prepend">
   <%= for room_state <- @room_states do %>
-    <li id="room:<%= room_state.id %>"><code><%= live_redirect room_state.id, to: Routes.room_path(@socket, :index, room_state.id) %></code></li>
+    <li id="room:<%= room_state.id %>">
+      <code><%= room_state.id %></code>
+      - <%= live_redirect "room", to: Routes.room_path(@socket, :index, room_state.id) %>
+      | <%= live_redirect "play", to: Routes.play_path(@socket, :index, room_state.id) %>
+    </li>
   <% end %>
 </ul>
