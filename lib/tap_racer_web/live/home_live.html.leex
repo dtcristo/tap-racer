@@ -1,9 +1,9 @@
-<h2>Active Rooms</h2>
+<h2>Public Rooms</h2>
 
-<button phx-click="create_room">Create room</button>
+<button phx-click="create_room">Create Room</button>
 
-<ul>
+<ul id="rooms" phx-update="prepend">
   <%= for room_state <- @room_states do %>
-    <li><code><%= room_state.id %></code></li>
+    <li id="room:<%= room_state.id %>"><code><%= live_redirect room_state.id, to: Routes.room_path(@socket, :index, room_state.id) %></code></li>
   <% end %>
 </ul>
