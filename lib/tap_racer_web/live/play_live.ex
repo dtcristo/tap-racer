@@ -4,7 +4,7 @@ defmodule TapRacerWeb.PlayLive do
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     id = String.downcase(id)
-    room = TapRacer.RoomRegistry.find(id)
+    room = TapRacer.room(id)
 
     if room do
       if connected?(socket), do: TapRacer.subscribe("room:#{id}")

@@ -22,6 +22,10 @@ defmodule TapRacer do
     RoomSupervisor.start_child()
   end
 
+  def room(id) do
+    TapRacer.RoomRegistry.find(id)
+  end
+
   def rooms do
     RoomSupervisor.which_children()
     |> Enum.reverse()
