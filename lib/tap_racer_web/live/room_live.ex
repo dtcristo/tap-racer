@@ -2,6 +2,17 @@ defmodule TapRacerWeb.RoomLive do
   use TapRacerWeb, :live_view
 
   @impl true
+  def render(assigns) do
+    ~L"""
+    <h2>Room - <code><%= @id %></code></h2>
+
+    <p>To play, visit <%= link Routes.play_url(@socket, :index, @id), to: Routes.play_path(@socket, :index, @id), target: "_blank" %> on your phone or scan the QR code below.</p>
+
+    <%= raw @qr_code %>
+    """
+  end
+
+  @impl true
   def mount(%{"id" => id}, _session, socket) do
     id = String.downcase(id)
     room = TapRacer.room(id)

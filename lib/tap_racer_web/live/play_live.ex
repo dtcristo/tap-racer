@@ -2,6 +2,13 @@ defmodule TapRacerWeb.PlayLive do
   use TapRacerWeb, :live_view
 
   @impl true
+  def render(assigns) do
+    ~L"""
+    <h2>Play - <code><%= @id %></code></h2>
+    """
+  end
+
+  @impl true
   def mount(%{"id" => id}, _session, socket) do
     id = String.downcase(id)
     room = TapRacer.room(id)

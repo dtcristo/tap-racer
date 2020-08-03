@@ -1,5 +1,0 @@
-<h2>Room - <code><%= @id %></code></h2>
-
-<p>To play, visit <%= link Routes.play_url(@socket, :index, @id), to: Routes.play_path(@socket, :index, @id), target: "_blank" %> on your phone or scan the QR code below.</p>
-
-<%= raw @qr_code %>
